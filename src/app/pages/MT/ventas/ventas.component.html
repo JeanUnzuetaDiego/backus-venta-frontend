@@ -1,0 +1,417 @@
+<nz-layout class="app-layout">
+  <nz-header>
+    <div class="app-header">
+      <div nz-row>
+        <div nz-col [nzSm]="18" [nzMd]="12" [nzLg]="5" [nzXs]="18" class="desktop-padding">
+          <nz-list nzBordered nzSize="small">
+            <nz-list-header style="padding: 0; text-align: center;"><mark style="display: block; ">Filtro
+                Temporal</mark></nz-list-header>
+            <nz-list-item>
+              <nz-row>
+                <div nz-col [nzXs]="11">
+                  <nz-date-picker class="custom-datepicker" style="width: 100%;" [nzDisabledDate]="disabledFilterStartDate" nzFormat="yyyy-MM-dd"
+                    nzAllowClear="false" [(ngModel)]="filterStartDate" nzPlaceHolder="Fecha inicio"
+                    (nzOnOpenChange)="handleFilterStartDateOpenChange($event)"></nz-date-picker>
+                </div>
+                <div nz-col [nzXs]="11">
+                  <nz-date-picker class="custom-datepicker" style="width: 100%;" #filterEndDatePicker [nzDisabledDate]="disabledFilterEndDate"
+                    nzAllowClear="false" nzFormat="yyyy-MM-dd" [(ngModel)]="filterEndDate" nzPlaceHolder="Fecha fin">
+                  </nz-date-picker>
+                </div>
+                <div nz-col [nzXs]="2">
+                  <button nz-button nz-tooltip nzTooltipTitle="Aplicar Filtro" [nzLoading]="loadingDataFilterDate"
+                  style="font-size: 1.5vw; margin-left: 0.25vw;" nzType="default" nzShape="circle"
+                    (click)="applyFilters()"><span nz-icon nzType="search"></span></button>
+                </div>
+              </nz-row>
+            </nz-list-item>
+          </nz-list>
+        </div>
+
+        <div nz-col [nzSm]="6" [nzMd]="12" [nzLg]="3" [nzXs]="6">
+          <nz-list nzBordered nzSize="small">
+            <nz-list-header style="padding: 0; text-align: center;"><mark
+                style="display: block;">(PA)</mark></nz-list-header>
+            <nz-list-item>
+              <nz-select [(ngModel)]="filterIntervalYear" (ngModelChange)="onFilterIntervalYearChange($event)"
+                style="width: 100%;">
+                <nz-option nzValue="1" nzLabel="Y-1"></nz-option>
+                <nz-option nzValue="2" nzLabel="Y-2"></nz-option>
+                <nz-option nzValue="3" nzLabel="Y-3"></nz-option>
+              </nz-select>
+            </nz-list-item>
+          </nz-list>
+        </div>
+
+        <div nz-col [nzSpan]="24" [nzLg]="16" class="desktop-padding">
+          <nz-list nzBordered nzSize="small">
+            <nz-list-header style="padding: 0; text-align: center;">
+              <mark style="display: block;">KPIs de Gestión</mark>
+            </nz-list-header>
+            <nz-list-item nz-row style="padding: 0;">
+              <div nz-col [nzSpan]="24" [nzLg]="6" [nzXs]="12">
+                <nz-list nzBordered nzSize="small">
+                  <nz-list-item style="padding: 0; text-indent: 1em;">
+                    {{ utilService.formatearNumeroConComas(redondearSiEsNecesario(totalKPIsGestionSohl, false)) }}</nz-list-item>
+                  <nz-list-item style="padding: 0; text-indent: 1em;"><b>Sell Out HL</b></nz-list-item>
+                </nz-list>
+              </div>
+              <div nz-col [nzSpan]="24" [nzLg]="6" [nzXs]="12">
+                <nz-list nzBordered nzSize="small">
+                  <nz-list-item style="padding: 0; text-indent: 1em;">
+                    {{ redondearSiEsNecesario(valueKPISGestionCrecimientoHLPA, true)}}
+                  </nz-list-item>
+                  <nz-list-item style="padding: 0; text-indent: 1em;"><b>Crecimiento HL (PA)</b></nz-list-item>
+                </nz-list>
+              </div>
+              <div nz-col [nzSpan]="24" [nzLg]="6" [nzXs]="12">
+                <nz-list nzBordered nzSize="small">
+                  <nz-list-item style="padding: 0; text-indent: 1em;">
+                    S/{{utilService.formatearNumeroConComas(redondearSiEsNecesario(dataResumeAmount?.totalamount, false)) }}
+                  </nz-list-item>
+                  <nz-list-item style="padding: 0; text-indent: 1em;"><b>Sell Out S/</b></nz-list-item>
+                </nz-list>
+              </div>
+
+
+              <div nz-col [nzSpan]="24" [nzLg]="6" [nzXs]="12">
+                <nz-list nzBordered nzSize="small">
+                  <nz-list-item style="padding: 0; text-indent: 1em;">
+                    {{ utilService.formatearNumeroConComas(redondearSiEsNecesario(dataResumeAmount?.var, false)) }}%
+                  </nz-list-item>
+                  <nz-list-item style="padding: 0; text-indent: 1em;"><b>Crecimiento S/ (PA)</b></nz-list-item>
+                </nz-list>
+              </div>
+            </nz-list-item>
+          </nz-list>
+        </div>
+      </div>
+    </div>
+  </nz-header>
+
+  <nz-content class="mi-contenido">
+    <nz-layout style="margin-top: 0;">
+
+      <!-- Modal de Menu Filtro -->
+      <app-drawer-wrapper textPlaceholder="Buscar Filtros-Menu" [filterItems]="listConfigurationMenu" [typeOptionMenu]="typeOptionMenu"
+      (changeFilterItems)="handleFilterMenu($event)"></app-drawer-wrapper>
+
+
+      <div class="inner-content">
+        <div nz-row [nzGutter]="4">
+
+          <div nz-col [nzSpan]="24" [nzMd]="12" [nzLg]="10" [nzXs]="24"
+            style="width: 100%; display: flex; flex-direction: column;" class="mobile-margin">
+            <nz-list nzBordered nzSize="small">
+              <nz-list-header style="padding: 0; text-align: left;"><mark style="display: block;">Comparativo Sell Out
+                  Inter Anual</mark>
+                <div style="text-align: center;">
+                  <button nz-button nz-tooltip nzTooltipTitle="Enfoque"  style="font-size: 14px;" nzType="default" nzShape="circle" (click)="openModal()">
+                    <span nz-icon nzType="export"></span>
+                  </button>
+                  <button nz-button nz-tooltip nzTooltipTitle="Subir"  style="font-size: 14px;" nzType="default" nzShape="circle" (click)="sellOutFilterDateUp()" [disabled]="disableButtonArrowUp">
+                    <span nz-icon nzType="arrow-up" nzTheme="outline"></span>
+                  </button>
+                  <button nz-button nz-tooltip nzTooltipTitle="Bajar"  style="font-size: 14px;" nzType="default" nzShape="circle" (click)="sellOutFilterDateDown()" [disabled]="disableButtonArrowDown">
+                    <span nz-icon nzType="arrow-down" nzTheme="outline"></span>
+                  </button>
+                </div>
+              </nz-list-header>
+
+              <nz-list-item style="position: relative;">
+                <div *ngIf="loaderComparativoSellOutGraph"
+                  style="width: 100%;height:100%;display: flex;justify-content: center;align-items: center;position: absolute;">
+                  <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+                </div>
+                <div id="myChart" style="width: 100%;height:408px;"></div>
+              </nz-list-item>
+            </nz-list>
+          </div>
+
+          <div nz-col [nzSpan]="24" [nzMd]="12" [nzLg]="7" [nzXs]="24"
+            style="width: 100%; display: flex; flex-direction: column;" class="mobile-margin">
+            <nz-list nzBordered nzSize="small">
+              <nz-list-header style="padding: 0; text-align: left;">
+                <mark style="display: flex; justify-content: space-between;">
+                  <span>Mix Producto</span>
+                  <span *ngIf="dataSkuTable.length > 0" nz-icon style="font-size: 25px; cursor: pointer;" nzType="file-excel" nzTheme="fill" (click)="downloadExcel('configurationTableKpiSku')"></span>
+                </mark>
+              </nz-list-header>
+              <nz-table #sortTableMixProducto nzTableLayout="fixed" [nzPageSize]="dataSkuTable.length" [nzShowPagination]="false" class="table-header" [nzLoading]="loaderSkuTable"
+                [nzData]="dataSkuTable" nzSize="small" nzBordered [nzScroll]="{ y: '400px' }">
+                <thead>
+                  <tr>
+                    <!-- <th [nzWidth]="'14vh'">KPI SKU</th>
+                    <th [nzWidth]="'8vh'">Mix %</th>
+                    <th [nzWidth]="'8vh'">Mix % (PA)</th>
+                    <th [nzWidth]="'8vh'">SO HL</th>
+                    <th [nzWidth]="'8vh'">SO HL (PA)</th>
+                    <th [nzWidth]="'10vh'">VAR % (PA)</th> -->
+                    <th *ngFor="let column of listOfColumnMixProducto; trackBy: trackByTitleMixProducto"
+                        [(nzSortOrder)]="column.sortOrder"
+                        [nzSortFn]="column.sortFn"
+                        (nzSortOrderChange)="sortChange($event, column.title, 'mix-producto')">
+                      {{ column.title }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of sortTableMixProducto.data">
+                    <td style="text-align: left;">{{ item.sku_kpi_backus }}</td>
+                    <td style="text-align: right; white-space: nowrap;">{{ redondearSiEsNecesario(item.mix, true)}}</td>
+                    <td style="text-align: right; white-space: nowrap;">{{ redondearSiEsNecesario(item.mixpa, true) }}
+                    </td>
+                    <td style="text-align: right; white-space: nowrap;">{{
+                      utilService.formatearNumeroConComas(redondearSiEsNecesario(item.sohl, false)) | number:'1.1-1'}}</td>
+                    <td style="text-align: right; white-space: nowrap;">{{
+                      utilService.formatearNumeroConComas(redondearSiEsNecesario(item.sohlpa, false)) | number:'1.1-1'}}</td>
+                    <td style="text-align: right; white-space: nowrap;">
+                      <div class="cell-content" style="display: flex; justify-content: space-between; align-items: center;">
+                        <!-- <div [ngClass]="{'triangle-down': item.var < 0, 'triangle-up': item.var >= 0}" class="triangle"></div> -->
+                        <div [ngClass]="(item.var == null) ? 'triangle-down' : (+item.var < 0) ?  'triangle-down' : 'triangle-up'" class="triangle"></div>
+                        <div>{{ redondearSiEsNecesario(item.var, true) }}</div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot style="position: sticky; right: 0; bottom: 0;">
+                  <tr>
+                    <td>Total</td>
+                    <td style="text-align: right;">{{ redondearSiEsNecesario(totalSkuTable['mix'], true) }}</td>
+                    <td style="text-align: right;">{{ redondearSiEsNecesario(totalSkuTable['mixpa'], true)}}</td>
+                    <td style="text-align: right;">{{
+                      utilService.formatearNumeroConComas(redondearSiEsNecesario(totalSkuTable['sohl'], false)) | number:'1.1-1'}}</td>
+                    <td style="text-align: right;">{{
+                      utilService.formatearNumeroConComas(redondearSiEsNecesario(totalSkuTable['sohlpa'], false)) }}</td>
+                    <div class="cell-content" style="display: flex; justify-content: space-between; align-items: center;">
+                      <div [ngClass]="{'triangle-down': totalSkuTable['var'] < 0, 'triangle-up': totalSkuTable['var'] >= 0}" class="triangle"></div>
+                      <div>{{ redondearSiEsNecesario(totalSkuTable['var'], true)}}</div>
+                    </div>
+                  </tr>
+                </tfoot>
+              </nz-table>
+            </nz-list>
+          </div>
+
+          <div nz-col [nzSpan]="24" [nzLg]="7" [nzMd]="12" [nzXs]="24"
+            style="width: 100%; display: flex; flex-direction: column;" class="mobile-margin">
+            <nz-list nzBordered nzSize="small">
+              <nz-list-header style="padding: 0; text-align: left;">
+                <mark style="display: flex; justify-content: space-between;">
+                  <span>Mix Cadena</span>
+                  <span *ngIf="dataSkuTable.length > 0" nz-icon style="font-size: 25px; cursor: pointer;" nzType="file-excel" nzTheme="fill" (click)="downloadExcel('configurationTableRetail')"></span>
+                </mark>
+              </nz-list-header>
+              <nz-table #sortTableMixCadena [nzPageSize]="dataCadenaTable.length" [nzShowPagination]="false" class="table-header" [nzLoading]="loaderSubcadenaTable"
+                [nzData]="dataCadenaTable" nzSize="small" nzBordered [nzScroll]="{ y: '400px' }">
+                <thead>
+                  <tr>
+                    <th *ngFor="let column of listOfColumnMixCadena; trackBy: trackByTitleMixCadena"
+                        [(nzSortOrder)]="column.sortOrder"
+                        [nzSortFn]="column.sortFn"
+                        (nzSortOrderChange)="sortChange($event, column.title, 'mix-cadena')">
+                      {{ column.title }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody style="height: 100%;">
+                  <tr *ngFor="let item of sortTableMixCadena.data">
+                    <td class="first-column" style="text-align: left;">{{ item.poc_cadena_backus }}</td>
+                    <td style="text-align: right; white-space: nowrap;">{{ redondearSiEsNecesario(item.mix, true)}}</td>
+                    <td style="text-align: right; white-space: nowrap;">{{ redondearSiEsNecesario(item.mixpa, true) }}</td>
+                    <td style="text-align: right; white-space: nowrap;">{{
+                      utilService.formatearNumeroConComas(redondearSiEsNecesario(item.sohl, false)) | number:'1.1-1'}}</td>
+                    <td style="text-align: right; white-space: nowrap;">{{
+                      utilService.formatearNumeroConComas(redondearSiEsNecesario(item.sohlpa, false)) | number:'1.1-1'}}</td>
+                    <td style="text-align: right; white-space: nowrap;">
+                      <div class="cell-content" style="display: flex; justify-content: space-between; align-items: center;">
+                        <!-- <div [ngClass]="{'triangle-down': item.var < 0, 'triangle-up': item.var >= 0}" class="triangle"></div> -->
+                        <div [ngClass]="(item.var == null) ? 'triangle-down' : (+item.var < 0) ?  'triangle-down' : 'triangle-up'" class="triangle"></div>
+                        <div>{{ redondearSiEsNecesario(item.var, true) }}</div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot style="position: sticky; right: 0; bottom: 0;">
+                  <tr>
+                    <td>Total</td>
+                    <td style="text-align: right;">{{ redondearSiEsNecesario(totalCadenaTable['mix'], true)}}</td>
+                    <td style="text-align: right;">{{ redondearSiEsNecesario(totalCadenaTable['mixpa'], true)}}</td>
+                    <td style="text-align: right;">{{
+                      utilService.formatearNumeroConComas(redondearSiEsNecesario(totalCadenaTable['sohl'], false)) | number:'1.1-1'}}</td>
+                    <td style="text-align: right;">{{
+                      utilService.formatearNumeroConComas(redondearSiEsNecesario(totalCadenaTable['sohlpa'], false)) | number:'1.1-1'}}
+                    </td>
+                    <div class="cell-content" style="display: flex; justify-content: space-between; align-items: center;">
+                      <div [ngClass]="{'triangle-down': totalCadenaTable['var'] < 0, 'triangle-up': totalCadenaTable['var'] >= 0}" class="triangle"></div>
+                      <div>{{ redondearSiEsNecesario(totalCadenaTable['var'], true) }}</div>
+                    </div>
+                  </tr>
+                </tfoot>
+              </nz-table>
+            </nz-list>
+          </div>
+
+          <div nz-col [nzSpan]="24" [nzLg]="8" [nzMd]="12" [nzXs]="24"
+            style="width: 100%; display: flex; flex-direction: column;" class="mobile-margin">
+            <nz-list nzBordered nzSize="small">
+              <nz-list-header style="padding: 0; text-align: left;">
+                <mark style="display: flex; justify-content: space-between;">
+                  <span>Top 10 Var % SOHL</span>
+                  <span *ngIf="dataTopBackusTable.length > 0" nz-icon style="font-size: 25px; cursor: pointer;" nzType="file-excel" nzTheme="fill" (click)="downloadExcel('configurationTableTopBackus')"></span>
+                </mark>
+              </nz-list-header>
+              <nz-table #sortTableTop10VarSOHL [nzPageSize]="dataTopBackusTable.length" [nzShowPagination]="false" class="table-header" [nzLoading]="loaderTopBackusTable"
+                [nzData]="dataTopBackusTable" nzSize="small" nzBordered [nzScroll]="{ y: '400px' }">
+                <thead>
+                  <tr>
+                    <th *ngFor="let column of listOfColumnTop10VarSOHL; trackBy: trackByTitleTop10VarSOHL"
+                        [(nzSortOrder)]="column.sortOrder"
+                        [nzSortFn]="column.sortFn"
+                        (nzSortOrderChange)="sortChange($event, column.title, 'top-10-var-sohl')">
+                      {{ column.title }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody style="height: auto">
+                  <tr *ngFor="let item of sortTableTop10VarSOHL.data">
+                    <td style="text-align: left;">{{ item.poc_nombre_cadena }}</td>
+                    <td style="text-align: right; white-space: nowrap;"> {{ item.sohl | number:'1.1-1'}} </td>
+                    <td style="text-align: right; white-space: nowrap;"> {{ item.sohlpa | number:'1.1-1'}} </td>
+                    <td style="text-align: right; white-space: nowrap;"> {{ item['varhl'] | number:'1.1-1'}} </td>
+                    <td style="text-align: right; white-space: nowrap;">
+                      <div class="cell-content" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div [ngClass]="(+item['var'] < 0) ?  'triangle-down' : 'triangle-up'" class="triangle"></div>
+                        <div>{{ item['var'] | number:'1.1-1' }}%</div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot style="position: sticky; right: 0; bottom: 0;">
+                  <tr>
+                    <td>Total</td>
+                    <td style="text-align: right;">{{ totalTopBackusTable['sohl'] | number:'1.1-1'}} </td>
+                    <td style="text-align: right;">{{ totalTopBackusTable['sohlpa'] | number:'1.1-1'}} </td>
+                    <td style="text-align: right;">{{ totalTopBackusTable['varhl'] | number:'1.1-1'}} </td>
+                    <div class="cell-content" style="display: flex; justify-content: space-between; align-items: center;">
+                      <div [ngClass]="{'triangle-down': totalCadenaTable['var'] < 0, 'triangle-up': totalCadenaTable['var'] >= 0}" class="triangle"></div>
+                      <div>{{ totalTopBackusTable['var'] | number:'1.1-1' }}%</div>
+                    </div>
+                  </tr>
+                </tfoot>
+              </nz-table>
+            </nz-list>
+          </div>
+
+          <div nz-col [nzSpan]="24" [nzLg]="8" [nzMd]="12" [nzXs]="24"
+            style="width: 100%; display: flex; flex-direction: column;" class="mobile-margin">
+            <div style="display: flex; flex-direction: column; height: 100%;">
+              <nz-list nzBordered nzSize="small">
+                <nz-list-header style="padding: 0; text-align: left;">
+                  <mark style="display: flex; justify-content: space-between;">
+                    <span>Bottom 10 Var% SO HL</span>
+                    <span *ngIf="dataBottomBackusTable.length > 0" nz-icon style="font-size: 25px; cursor: pointer;" nzType="file-excel" nzTheme="fill" (click)="downloadExcel('configurationTableBottomBackus')"></span>
+                  </mark>
+                </nz-list-header>
+                <nz-table #sortTableBottom10VarSOHL [nzPageSize]="dataBottomBackusTable.length" [nzShowPagination]="false" class="table-header" [nzLoading]="loaderBottomBackusTable"
+                  [nzData]="dataBottomBackusTable" nzSize="small" nzBordered [nzScroll]="{ y: '400px' }">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let column of listOfColumnBottom10VarSOHL; trackBy: trackByTitleBottom10VarSOHL"
+                          [(nzSortOrder)]="column.sortOrder"
+                          [nzSortFn]="column.sortFn"
+                          (nzSortOrderChange)="sortChange($event, column.title, 'bottom-10-var-sohl')">
+                        {{ column.title }}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody style="height: auto;">
+                    <tr *ngFor="let item of sortTableBottom10VarSOHL.data">
+                      <td style="text-align: left;">{{ item.poc_nombre_cadena }}</td>
+                      <td style="text-align: right; white-space: nowrap;"> {{ item.sohl | number:'1.1-1'}}</td> 
+                      <td style="text-align: right; white-space: nowrap;"> {{ item.sohlpa | number:'1.1-1'}}</td>
+                      <td style="text-align: right; white-space: nowrap;"> {{ item['varhl'] | number:'1.1-1'}} </td>
+                      <td style="text-align: right; white-space: nowrap;">
+                        <div class="cell-content" style="display: flex; justify-content: space-between; align-items: center;">
+                          <div [ngClass]="(+item['var'] < 0) ?  'triangle-down' : 'triangle-up'" class="triangle"></div>
+                          <div>{{ item['var'] | number:'1.1-1' }}%</div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot style="position: sticky; right: 0; bottom: 0;">
+                    <tr>
+                      <td>Total</td>
+                      <td style="text-align: right;"> {{ totalBottomBackusTable['sohl'] | number:'1.1-1'}} </td>
+                      <td style="text-align: right;"> {{ totalBottomBackusTable['sohlpa'] | number:'1.1-1'}} </td>
+                      <td style="text-align: right;"> {{ totalBottomBackusTable['varhl'] | number:'1.1-1'}} </td>
+                      <div class="cell-content" style="display: flex; justify-content: space-between">
+                        <div class="cell-content" style="display: flex; justify-content: flex-end; align-items: center;">
+                          <div [ngClass]="{'triangle-down': totalBottomBackusTable['var'] < 0, 'triangle-up': totalBottomBackusTable['var'] >= 0}"></div>
+                        </div>
+                        <div>{{ totalBottomBackusTable['var'] | number:'1.1-1'}}%</div>
+                      </div>
+                    </tr>
+                  </tfoot>
+                </nz-table>
+              </nz-list>
+            </div>
+          </div>
+
+          <div nz-col [nzSpan]="24" [nzLg]="8" [nzMd]="12" [nzXs]="24"
+            style="width: 100%; display: flex; flex-direction: column;" class="mobile-margin">
+            <nz-list nzBordered nzSize="small">
+              <nz-list-header style="padding: 0; text-align: left;">
+                <mark style="display: flex; justify-content: space-between;">
+                  <span>Performance Top SKU</span>
+                  <span *ngIf="dataTopDescriptionNorTable.length > 0" nz-icon style="font-size: 25px; cursor: pointer;" nzType="file-excel" nzTheme="fill" (click)="downloadExcel('configurationTableTopDescriptionNor')"></span>
+                </mark>
+              </nz-list-header>
+              <nz-table #sortTablePerformanceTopSKU [nzPageSize]="dataTopDescriptionNorTable.length" [nzShowPagination]="false" class="table-header" [nzLoading]="loaderTopDescriptionNorTable"
+                [nzData]="dataTopDescriptionNorTable" nzSize="small" nzBordered [nzScroll]="{ y: '400px' }">
+                <thead>
+                  <tr>
+                    <th *ngFor="let column of listOfColumnPerformanceTopSKU; trackBy: trackByTitlePerformanceTopSKU"
+                        [(nzSortOrder)]="column.sortOrder"
+                        [nzSortFn]="column.sortFn"
+                        (nzSortOrderChange)="sortChange($event, column.title, 'performance-top-sku')">
+                      {{ column.title }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody style="height: auto;">
+                  <tr *ngFor="let item of sortTablePerformanceTopSKU.data">
+                    <td style="text-align: left;">{{item.sku_descripcion_norma_backus}}</td>
+                    <td style="text-align: right; white-space: nowrap;"> {{ item.sohl | number:'1.1-1'}} </td>
+                    <td style="text-align: right; white-space: nowrap;"> {{ item.sohlpa | number:'1.1-1'}} </td>
+                    <td style="text-align: right; white-space: nowrap;"> {{ (item.sohl - item.sohlpa) | number:'1.1-1'}} </td>
+                    <td style="text-align: right; white-space: nowrap;">
+                      <div class="cell-content" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div [ngClass]=" (+item['var'] < 0) ?  'triangle-down' : 'triangle-up'" class="triangle"></div>
+                        <div>{{ item['var'] | number:'1.1-1' }}%</div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot style="position: sticky; right: 0; bottom: 0;">
+                  <tr>
+                    <td>Total</td>
+                    <td style="text-align: right;"> {{ totalTopDescriptionNorTable['sohl'] | number:'1.1-1'}} </td>
+                    <td style="text-align: right;"> {{ totalTopDescriptionNorTable['sohlpa'] | number:'1.1-1'}} </td>
+                    <td style="text-align: right;"> {{ totalTopDescriptionNorTable['varhl'] | number:'1.1-1'}} </td>
+                    <div class="cell-content" style="display: flex; justify-content: space-between; align-items: center;">
+                      <div [ngClass]="{'triangle-down': totalTopDescriptionNorTable['var'] < 0, 'triangle-up': totalTopDescriptionNorTable['var'] >= 0}"></div>
+                      <div>{{ totalTopDescriptionNorTable['var'] | number:'1.1-1' }}%</div>
+                    </div>
+                  </tr>
+                </tfoot>
+              </nz-table>
+            </nz-list>
+          </div>
+        </div>
+      </div>
+    </nz-layout>
+  </nz-content>
+</nz-layout>
+
+<app-ventas-grafico-modal *ngIf="isOpenModal" [data]="dataVentasModal" [visible]="isOpenModal" [typeFilterSelection]="filterSellOutSelection" (modalClosed)="isOpenModal = false"></app-ventas-grafico-modal>

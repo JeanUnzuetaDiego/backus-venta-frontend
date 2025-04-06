@@ -1,0 +1,120 @@
+<nz-layout class="app-layout">
+  <nz-header>
+    <div class="app-header">
+      <div nz-row>
+        <div nz-col [nzSm]="12" [nzMd]="10" [nzLg]="4" [nzXs]="18" class="desktop-padding">
+          <nz-list nzBordered nzSize="small">
+            <nz-list-header style="padding: 0; text-align: center;"><mark style="display: block; ">Año Cencosud</mark></nz-list-header>
+            <nz-list-item>
+              <nz-row [ngStyle]="{display: 'flex', justifyContent: 'center', width: '100%'}">
+                  <nz-date-picker [nzAllowClear]="true" nzFormat="yyyy" nzMode="year" style="width: 100%;" (ngModelChange)="onChangeFilterYear($event)"
+                   [(ngModel)]="filterYear" nzPlaceHolder="Calendario años" ></nz-date-picker>
+              </nz-row>
+            </nz-list-item>
+          </nz-list>
+        </div>
+        <div nz-col [nzSm]="6" [nzMd]="6" [nzLg]="4" [nzXs]="18" class="desktop-padding">
+          <nz-list nzBordered nzSize="small">
+            <nz-list-header style="padding: 0; text-align: center;"><mark style="display: block; ">Mes Cencosud</mark></nz-list-header>
+            <nz-list-item>
+              <nz-select  nzShowSearch nzAllowClear nzMode="multiple" [nzShowArrow]="true" nzPlaceHolder="Seleccione mes" [(ngModel)]="filterMonth"
+                (ngModelChange)="onChangeFilterMonth($event)">
+                <nz-option *ngFor="let item of listOfMonth" [nzLabel]="item.name" [nzValue]="item.value" [nzDisabled]="item.disabled"></nz-option>
+              </nz-select>
+            </nz-list-item>
+          </nz-list>
+        </div>
+        <div nz-col [nzSm]="6" [nzMd]="6" [nzLg]="4" [nzXs]="18" class="desktop-padding">
+          <nz-list nzBordered nzSize="small">
+            <nz-list-header style="padding: 0; text-align: center;"><mark style="display: block; ">Semana Cencosud</mark></nz-list-header>
+            <nz-list-item>
+              <nz-select nzShowSearch nzAllowClear nzMode="multiple" [nzShowArrow]="true" nzPlaceHolder="Seleccione semana" [(ngModel)]="filterWeek"
+                (ngModelChange)="onChangeFilterWeek($event)">
+                <nz-option *ngFor="let item of listOfWeek" [nzLabel]="item.name" [nzValue]="item.value" [nzDisabled]="item.disabled"></nz-option>
+              </nz-select>
+            </nz-list-item>
+          </nz-list>
+        </div>
+        <div nz-col [nzSm]="1" [nzMd]="1" [nzLg]="1" [nzXs]="1" class="desktop-padding">
+          <nz-list nzBordered nzSize="small">
+            <nz-list-header style="padding: 0; text-align: center;"><mark style="display: block; ">Filtro</mark></nz-list-header>
+            <nz-list-item>
+              <button nz-button nz-tooltip nzTooltipTitle="Aplicar Filtro" [nzLoading]="loadingDataFilterDate"
+              nzType="default" nzShape="circle"
+              (click)="applyFilters()"><span nz-icon nzType="search"></span>
+            </button>
+            </nz-list-item>
+          </nz-list>
+        </div>
+      </div>
+    </div>
+  </nz-header>
+
+  <nz-content class="mi-menu">
+    <nz-layout style="margin-top: 0;">
+
+      <!-- Modal de Menu Filtro -->
+      <app-drawer-wrapper-cencosud textPlaceholder="Buscar Filtros-Menu" [filterItems]="listConfigurationMenu" [typeOptionMenu]="typeOptionMenu"
+      (changeFilterItems)="handleFilterMenu($event)"></app-drawer-wrapper-cencosud>
+
+      <div class="inner-content">
+        <div nz-row [nzGutter]="4">
+
+          <div nz-col [nzSpan]="24" [nzLg]="8" [nzMd]="12" [nzXs]="24" class="block-content">
+            <nz-list nzBordered nzSize="small">
+              <nz-list-header style="padding: 0;">
+                <mark style="display: block;"> Mix de ventas cedena -  rubro | marca | sku </mark>
+                <div style="text-align: center;">
+                  <button *ngIf="hiddenButtonArrowUp" nz-button nz-tooltip nzTooltipTitle="Subir"  style="font-size: 14px;" nzType="default" nzShape="circle" (click)="onChangeButtonUpChartPieRetail()">
+                    <span nz-icon nzType="arrow-up" nzTheme="outline"></span>
+                  </button>
+                </div>
+                </nz-list-header>
+              <div *ngIf="loaderVarTable"
+                style="width: 100%;height:100%;display: flex;justify-content: center;align-items: center;position: absolute;">
+                  <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+              </div>
+              <div nz-col nzFlex="0 1 200px" #chartPieRetail style="width: 600px;height: 400px;"></div>
+            </nz-list>
+          </div>
+
+          <div nz-col [nzSpan]="24" [nzLg]="16" [nzMd]="12" [nzXs]="24" class="block-content">
+            <nz-list nzBordered nzSize="small">
+              <nz-list-header style="padding: 0;"><mark style="display: block;"> Venta & Share</mark></nz-list-header>
+              <div *ngIf="loaderVarTable"
+                  style="width: 100%;height:100%;display: flex;justify-content: center;align-items: center;position: absolute;">
+                <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+              </div>
+
+              <div nz-col nzFlex="0 1 200px" #chartComparativo2 style="width: 100%;height: 400px;"></div>
+            </nz-list>
+          </div>
+
+          <!-- <div nz-col [nzSpan]="24" [nzLg]="8" [nzMd]="12" [nzXs]="24" class="block-content">
+            <nz-list nzBordered nzSize="small">
+              <nz-list-header style="padding: 0;"><mark style="display: block;"> Mix de ventas cliente -  rubro | marca | sku </mark></nz-list-header>
+              <div *ngIf="loaderVarTable"
+                style="width: 100%;height:100%;display: flex;justify-content: center;align-items: center;position: absolute;">
+                  <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+              </div>
+              <div nz-col nzFlex="0 1 200px" #chartPieClient style="width: 400px;height: 400px;"></div>
+            </nz-list>
+          </div> -->
+
+          <div nz-col [nzSpan]="24" [nzLg]="24" [nzMd]="12" [nzXs]="24" class="block-content">
+            <nz-list nzBordered nzSize="small">
+              <nz-list-header style="padding: 0;"><mark style="display: block;"> Evolutivo Share</mark></nz-list-header>
+              <div *ngIf="loaderVarTable"
+                  style="width: 100%;height:100%;display: flex;justify-content: center;align-items: center;position: absolute;">
+                <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+              </div>
+
+              <div nz-col nzFlex="0 1 200px" #chartComparativo3 style="width: 100%;height: 400px;"></div>
+            </nz-list>
+          </div>
+
+        </div>
+      </div>
+    </nz-layout>
+  </nz-content>
+</nz-layout>

@@ -1,0 +1,102 @@
+.container-header-venta-diario {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.container-date {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #DBDBDB;
+  border-top: none;
+  width: 300px;
+  .title-date {
+    margin-bottom: 0;
+    background-color: rgb(233, 229, 15);
+    padding: 2.8px 0 2.8px 0;
+    text-align: center;
+  }
+  .content-date {
+    display: flex;
+    gap: 2px;
+    padding: 2px;
+    .items {
+      flex: 1;
+    }
+  }
+  @media (max-width:1280px) {
+    width: 400px;
+  }
+  @media (max-width: 640px) {
+    width: 100%;
+  }
+}
+
+.container-kpis-gestion {
+  width: calc(100vw - 302px);
+  .title-kpis-gestion {
+    margin-bottom: 0;
+    background-color: rgb(233, 229, 15);
+    padding: 2.8px 0 2.8px 0;
+    text-align: center;
+  }
+  .content-kpis-gestion {
+    display: flex;
+    gap: 2px;
+    .content-element {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #DBDBDB;
+      flex: 1;
+      div {
+        padding: 2px 8px;
+        text-wrap: nowrap;
+        &:first-child {
+          border-bottom: 1px solid #DBDBDB;
+        }
+      }
+    }
+    @media (max-width:980px) {
+      flex-wrap: wrap;
+    }
+  }
+  @media (max-width:1280px) {
+    width: 100vw;
+  }
+}
+.container-title-table {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(233, 229, 15);
+  padding: 2.8px 0 2.8px 0;
+  .title-table {
+    margin-bottom: 0;
+  }
+}
+
+.sum-total-columns {
+  tr {
+    background-color: lightslategrey;
+    color: #fff;
+  }
+}
+
+::ng-deep .ant-table-thead > tr > th {
+  background-color: lightslategrey;
+  color: #fff;
+  text-align: center;
+}
+
+.table-pagination{
+  display: flex;
+  overflow-x: hidden;
+  justify-content: center;
+  margin-top: 10px;
+  align-items: center;
+  margin: 0 2px 4px 2px;
+}
+::ng-deep .ant-picker-footer .ant-picker-today-btn {
+  display: none;
+}

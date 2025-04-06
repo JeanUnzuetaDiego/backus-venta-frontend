@@ -1,0 +1,127 @@
+<!-- <h1>CoponenteEdit</h1> -->
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    @if(isEdit){
+        <nz-form-item>
+            <nz-form-label [nzSpan]="7" >Usuario ID</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+                <input nz-input formControlName="user_id" placeholder="Ingrese el usuario ID" />
+                <ng-template #userErrorTpl let-control>
+                    @if (control.errors?.['required']) {
+                    El userId es obiglatorio!
+                    }
+                    @if (control.errors?.['duplicated']) {
+                    El userId se repite!
+                    }
+                </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+    }@else{
+        <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>Usuario ID</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+                <input nz-input formControlName="user_id" placeholder="Ingrese el usuario ID"/>
+                <ng-template #userErrorTpl let-control>
+                    @if (control.errors?.['required']) {
+                    El userId es obiglatorio!
+                    }
+                    @if (control.errors?.['duplicated']) {
+                    El userId ya existe!
+                    }
+                </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+    }
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Nombre de usuario</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+            <input nz-input formControlName="name" placeholder="Ingrese el nombre" />
+            <ng-template #userErrorTpl let-control>
+                @if (control.errors?.['required']) {
+                El userId es obiglatorio!
+                }
+                @if (control.errors?.['duplicated']) {
+                El userId se repite!
+                }
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>E-mail</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="emailErrorTpl">
+            <input nz-input formControlName="email" placeholder="email" type="email" />
+            <ng-template #emailErrorTpl let-control>
+                @if (control.errors?.['email']) {
+                email no válido°
+                }
+                @if (control.errors?.['required']) {
+                El email es obiglatorio!
+                }
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    @if(isEdit){
+        <nz-form-item>
+            <nz-form-label [nzSpan]="7" >Password</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Por favor ingrese su contraseña!">
+                <input nz-input type="password" formControlName="password" placeholder="Ingrese sus contraseña" (ngModelChange)="validateConfirmPassword()" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="7" >Confirm Password</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="passwordErrorTpl">
+                <input nz-input type="password" formControlName="confirm" placeholder="confirma tu contraseña" />
+                <ng-template #passwordErrorTpl let-control>
+                    @if (control.errors?.['confirm']) {
+                    las contraseñas no coinciden!
+                    }
+                </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+    }@else {
+        <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>Password</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Por favor ingrese su contraseña!">
+                <input nz-input type="password" formControlName="password" (ngModelChange)="validateConfirmPassword()" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>Confirm Password</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="passwordErrorTpl">
+                <input nz-input type="password" formControlName="confirm" placeholder="confirma tu contraseña" />
+                <ng-template #passwordErrorTpl let-control>
+                    @if (control.errors?.['required']) {
+                    confirma tu contraseña!
+                    }
+                    @if (control.errors?.['confirm']) {
+                    las contraseñas no coinciden!
+                    }
+                </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+    }
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" for="select" nzRequired>Rol</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+          <nz-select id="select" nzPlaceHolder="Selecciona una opción" formControlName="role">
+            <nz-option nzValue="admin" nzLabel="admin"></nz-option>
+            <nz-option nzValue="analista" nzLabel="analista"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" for="select">Estado</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+          <label nz-checkbox formControlName="activate" (ngModelChange)="checkChange($event)">
+            {{isActiveUser ? 'Habilitado' : 'Deshabilitado'}}
+          </label>
+        </nz-form-control>
+      </nz-form-item>
+    <nz-form-item>
+        <nz-form-control [nzOffset]="7" [nzSpan]="12">
+            <button nz-button nzType="primary" [disabled]="!validateForm.valid" [nzLoading]="isLoadingAction">{{isEdit ? 'Actualizar' : 'Agregar'}}</button>
+            <!-- <button *ngIf="!isEdit" nz-button (click)="resetForm($event)">Limpiar</button> -->
+            <button nz-button nzType="primary" nzDanger (click)="closeModal($event)">Cancelar</button>
+            
+        </nz-form-control>
+    </nz-form-item>
+</form>

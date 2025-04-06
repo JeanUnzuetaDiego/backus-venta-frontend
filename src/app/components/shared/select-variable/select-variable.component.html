@@ -1,0 +1,17 @@
+<div class="container mobile-margin">
+    <nz-list nzBordered nzSize="small">
+        <nz-list-header style="padding: 0; text-align: center;">
+            <mark style="display: block;">Indicaciones</mark>
+        </nz-list-header>
+        <p class="text-indicaciones">Seleccionar las variables que conformarán las columnas de la tabla, en el orden
+            requerido.</p>
+    </nz-list>
+    <nz-list nzBordered nzSize="small">
+        <nz-list-header style="padding: 0; text-align: center;">
+            <mark style="display: block;">Variable</mark>
+        </nz-list-header>
+        <button nz-button (click)="deselectAll()"><span nz-icon nzType="clear" nzTheme="outline"></span> Limpiar</button>
+        <nz-checkbox-group class="vertical-checkbox-group" [(ngModel)]="columnOptions"
+            (ngModelChange)="updateSingleCheckedVariable()"></nz-checkbox-group>
+    </nz-list>
+</div>

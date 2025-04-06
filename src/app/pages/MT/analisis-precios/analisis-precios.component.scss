@@ -1,0 +1,86 @@
+.app-layout {
+  background-color: #fff;
+  .app-header {
+    width: 326px;
+    padding-bottom: 2px;
+  }
+  .inner-content {
+    background: #fff;
+    .container-information {
+      display: flex;
+      gap: 2px;
+      @media (max-width:768px) {
+        flex-direction: column;
+      }
+    }
+  }
+}
+.table-pagination{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  align-items: center;
+}
+
+::ng-deep .ant-list-bordered.ant-list-sm .ant-list-item {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+::ng-deep .ant-layout-header {
+  background-color: #fff;
+  height: auto;
+  padding: 0;
+}
+::ng-deep .ant-list-item {
+  justify-content: flex-start;
+  gap: 4px;
+}
+::ng-deep .ant-table-wrapper {
+  max-width: calc(100vw - (246px + 2px));
+  overflow-x: auto;
+  @media (max-width:768px) {
+    max-width: calc(100vw);
+  }
+}
+::ng-deep .ant-table.ant-table-small .ant-table-tbody > tr > td {
+  padding: 0 4px 0px 4px;
+}
+
+::ng-deep .ant-pagination ul {
+  text-align: center;
+}
+
+nz-list-header {
+  padding: 0;
+  text-align: center;
+
+  mark {
+    display: flex;
+    justify-content: center;
+    font-weight: bold; // Esto hará que el texto esté en negrita
+    background-color: rgb(233, 229, 15); // Ajusta este valor al color que prefieras
+    width: 100%; // Agrega esta línea
+  }
+  // .title-table{
+  //   width: 98%;
+  // }
+  .content-title-table {
+    justify-content: space-between;
+  }
+}
+
+.table-header {
+  th, tfoot>tr {
+    text-align: center;
+    background-color: lightslategrey;
+    color: white;
+    font-weight: 500;
+  }
+  td {
+    text-align: center;
+  }
+}
+
+::ng-deep .ant-picker-footer .ant-picker-today-btn {
+  display: none;
+}

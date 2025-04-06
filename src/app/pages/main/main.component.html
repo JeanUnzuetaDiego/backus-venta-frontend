@@ -1,0 +1,44 @@
+<section class="container">
+  <router-outlet></router-outlet>
+</section>
+<footer class="fixed-footer">
+  <div class="container-footer">
+   <div>
+    <ul nz-menu nzMode="horizontal">
+      <ng-container *ngFor="let title of listTitle">
+        <ng-container *ngIf="title.subtitles.length > 0">
+          <li nz-submenu nzPlacement="bottomLeft" [nzTitle]="title.name" nzIcon="laptop" [class.active-menu-item]="currentRoute.split('/')[0] == title.current">
+            <ul>
+              <li *ngFor="let tab of title.subtitles" nz-menu-item>
+                <a *ngIf="tab.visible"  class="centrado" (click)="toNavigateRote(tab)" [class.active-menu-item]="currentRoute == tab.link">{{tab.name}}</a>
+              </li>
+            </ul>
+          </li>
+        </ng-container>
+      </ng-container>
+    </ul>
+   </div>
+   <div class="content-perfil">
+    <ul nz-menu nzMode="horizontal">
+      <button
+        nz-button
+        nz-popover
+        [nzPopoverContent]="contentTemplate"
+        nzPopoverPlacement="topRight"
+      >
+      <span nz-icon nzType="user" nzTheme="outline"></span> Perfil
+      </button>
+    </ul>
+   </div>
+    
+  </div>
+</footer>
+
+<ng-template #contentTemplate>
+  <div class="content-description">
+    <p class="icon-user"><span nz-icon nzType="user" nzTheme="outline"></span></p>
+    <h3>{{user.nombre}}</h3>
+    <h4>{{user.role}}</h4>
+    <button nz-button nzType="dashed" nzBlock (click)="logout()"><span nz-icon nzType="logout"></span>Cerrar Sesión</button>
+  </div>
+</ng-template>

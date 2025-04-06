@@ -1,0 +1,16 @@
+.container {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 16px;
+    .content-options {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 16px;
+        .buttons-upload-file {
+            button:nth-child(1) {
+                margin-right: 4px;
+            }
+        }
+    }
+}

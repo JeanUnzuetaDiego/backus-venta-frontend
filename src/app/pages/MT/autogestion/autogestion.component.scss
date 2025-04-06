@@ -1,0 +1,126 @@
+// usando
+.app-layout {
+  background-color: #fff;
+  .app-header {
+    // position: relative;
+    // padding: 0;
+    // background-color: #fff;
+    // box-shadow: 0 1px 4px rgba(0,21,41,.08);
+    // width: 100%;
+    // z-index: 2;
+    width: 326px;
+    padding-bottom: 2px;
+  }
+  .inner-content {
+    // padding: 6px;
+    background: #fff;
+    // position: relative;
+    // min-height: 360px;
+    // max-height: 90vh;
+    // overflow-x: auto;
+    // height: 80vh;
+    .container-information {
+      display: flex;
+      gap: 2px;
+      @media (max-width:768px) {
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+.table-pagination{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  align-items: center;
+}
+
+::ng-deep .ant-list-bordered.ant-list-sm .ant-list-item {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+::ng-deep .ant-layout-header {
+  background-color: #fff;
+  height: auto;
+  padding: 0;
+}
+::ng-deep .ant-list-item {
+  justify-content: flex-start;
+  gap: 4px;
+}
+::ng-deep .ant-table-wrapper {
+  max-width: calc(100vw - (246px + 2px));
+  overflow-x: auto;
+  @media (max-width:768px) {
+    max-width: calc(100vw);
+  }
+}
+::ng-deep .ant-table.ant-table-small .ant-table-tbody > tr > td {
+  padding: 0 4px 0px 4px;
+}
+
+::ng-deep .ant-pagination ul {
+  text-align: center;
+}
+
+// no usando
+
+nz-list-header {
+  padding: 0;
+  text-align: center;
+
+  mark {
+    display: flex;
+    justify-content: center;
+    font-weight: bold; // Esto hará que el texto esté en negrita
+    background-color: rgb(233, 229, 15); // Ajusta este valor al color que prefieras
+    width: 100%; // Agrega esta línea
+  }
+  // .title-table{
+  //   width: 98%;
+  // }
+  .content-title-table {
+    justify-content: space-between;
+  }
+}
+
+// 20/04/2024
+/* Estilo general de la barra de desplazamiento */
+// .vertical-checkbox-group::-webkit-scrollbar {
+//   width: 8px; /* Ancho de la barra de desplazamiento */
+// }
+
+// /* Estilo del riel de la barra de desplazamiento */
+// .vertical-checkbox-group::-webkit-scrollbar-track {
+//   background: #f1f1f1; /* Color de fondo del riel */
+//   border-radius: 10px; /* Radio de borde del riel */
+// }
+
+// /* Estilo del control deslizante de la barra de desplazamiento */
+// .vertical-checkbox-group::-webkit-scrollbar-thumb {
+//   background: yellow; /* Color del control deslizante */
+//   border-radius: 10px; /* Radio de borde del control deslizante */
+// }
+
+// /* Cambiar el color del control deslizante al pasar el mouse sobre él */
+// .vertical-checkbox-group::-webkit-scrollbar-thumb:hover {
+//   background: yellow; /* Nuevo color del control deslizante al pasar el mouse */
+// }
+
+.table-header {
+  th, tfoot>tr {
+    text-align: center;
+    background-color: lightslategrey;
+    color: white;
+    font-weight: 500;
+  }
+  td {
+    text-align: center;
+  }
+}
+
+::ng-deep .ant-picker-footer .ant-picker-today-btn {
+  display: none;
+}

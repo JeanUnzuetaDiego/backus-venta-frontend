@@ -1,0 +1,75 @@
+
+<div class="container">
+  <div class="content-title">
+    <h3>Oxxo</h3>
+  </div>
+  <div class="container-content">
+    <div class="content-options">
+      <div class="buttons-upload-file">
+        <button nz-button (click)="uploadFile('stock')">
+          <span nz-icon nzType="plus" nzTheme="outline"></span>
+          Cargar Stock
+        </button>
+        <button nz-button (click)="uploadFile('venta')">
+          <span nz-icon nzType="plus" nzTheme="outline"></span>
+          Cargar Venta
+        </button>
+      </div>
+      <div class="datePicketFilter">
+        <div>
+          <nz-range-picker nzSize="default" [(ngModel)]="dateRange"  (ngModelChange)="onDateRangeChange($event)" [nzDisabledDate]="nzDisabledDate"></nz-range-picker>
+        </div>
+      </div>
+    </div>
+    <div>
+      <nz-table #smallTable nzSize="small" [nzData]="listOxxoVentaStock" [nzScroll]="{ x: '1200px' }" [nzLoading]="loaderTable" [nzShowPagination]="false">
+        <thead>
+          <tr>
+            <th nzWidth="90px">Fecha</th>
+            <th nzWidth="90px">Poc</th>
+            <th nzWidth="90px">Sku</th>
+            <th nzWidth="100px">Poc Nombre</th>
+            <th nzWidth="200px">Sku Descripción</th>
+            <th nzWidth="90px">Venta</th>
+            <th nzWidth="120px">Venta Cantidad</th>
+            <th nzWidth="150px">Venta Importe Costo</th>
+            <th nzWidth="150px">Venta Importe Venta</th>
+            <th nzWidth="90px">Stock</th>
+            <th nzWidth="150px">Stock Cantidad</th>
+            <th nzWidth="160px">Stock Importe Costo</th>
+            <th nzWidth="160px">Fecha Inicio Proceso</th>
+            <th nzWidth="160px">Fecha Fin Proceso</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let element of smallTable.data">
+            <td>{{ element.fecha | date:'yyyy-MM-dd'}}</td>
+            <td>{{ element.poc}}</td>
+            <td>{{ element.sku}}</td>
+            <td>{{ element.poc_nombre}}</td>
+            <td>{{ element.sku_descripcion}}</td>
+            <td>{{ element.venta}}</td>
+            <td>{{ element.venta_cantidad}}</td>
+            <td>{{ element.venta_importe_costo}}</td>
+            <td>{{ element.venta_importe_venta}}</td>
+            <td>{{ element.stock}}</td>
+            <td>{{ element.stock_cantidad}}</td>
+            <td>{{ element.stock_importe_costo}}</td>
+            <td>{{ element.fecha_tiempo_inicio_proceso | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{ element.fecha_tiempo_fin_proceso | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <div class="table-pagination">
+        <nz-pagination
+        [nzPageIndex]="pageIndex"
+        [nzTotal]="totalRecords"
+        [nzPageSize]="pageSize"
+        (nzPageIndexChange)="handlePageEvent($event)"
+        >
+       </nz-pagination>
+       <span style="margin-left: 8px; text-align: center;">Total: {{ setFixedToNumber(totalRecords) }} registros</span>
+      </div>
+    </div>
+  </div>
+</div>

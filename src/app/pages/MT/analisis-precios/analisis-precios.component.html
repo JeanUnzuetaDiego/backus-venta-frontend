@@ -1,0 +1,127 @@
+<nz-layout class="app-layout">
+  <nz-header>
+    <div class="app-header">
+      <div>
+        <nz-list nzBordered nzSize="small">
+          <nz-list-header style="padding: 0;"><mark>Fecha</mark></nz-list-header>
+          <nz-list-item>
+            <div class="filtros">
+              <nz-date-picker [nzDisabledDate]="disabledFilterStartDate" nzFormat="yyyy-MM-dd"
+                nzAllowClear="false" [(ngModel)]="filterStartDate" nzPlaceHolder="Fecha inicio"
+                (nzOnOpenChange)="handleFilterStartDateOpenChange($event)"></nz-date-picker>
+            </div>
+            <div class="filtros">
+              <nz-date-picker #filterEndDatePicker [nzDisabledDate]="disabledFilterEndDate"
+                nzAllowClear="false" nzFormat="yyyy-MM-dd" [(ngModel)]="filterEndDate" nzPlaceHolder="Fecha fin">
+              </nz-date-picker>
+            </div>
+            <div>
+              <button nz-button nz-tooltip nzTooltipTitle="Aplicar Filtro" [nzLoading]="loadingDataFilterDate"
+                style="font-size: 14px;" nzType="default" nzShape="circle"
+                (click)="applyFilters()">
+                <span nz-icon nzType="search"></span>
+              </button>
+            </div>
+          </nz-list-item>
+        </nz-list>
+      </div>
+    </div>
+  </nz-header>
+
+  <nz-content class="mi-menu">
+    <nz-layout>
+
+      <!-- Modal de Menu Filtro -->
+      <app-drawer-wrapper textPlaceholder="Buscar Filtros-Menu" [filterItems]="listConfigurationMenu"
+        [typeOptionMenu]="typeOptionMenu" (changeFilterItems)="handleFilterMenu($event)"></app-drawer-wrapper>
+
+
+      <div class="inner-content">
+        <div class="container-information">
+
+          <div>
+            <app-select-variable (changeSelectColumns)="handleSelectVariable($event)"></app-select-variable>
+          </div>
+
+          <div
+            style="width: 100%; display: flex; flex-direction: column">
+            <nz-list nzBordered nzSize="small">
+              <nz-list-header style="padding: 0; text-align: center">
+                <mark class="content-title-table">
+                  <p></p>
+                  <div class="title-table">Tabla Análisis Precio</div>
+                  <span *ngIf="dataAutogestionTable.length > 0" nz-icon style="font-size: 25px; cursor: pointer;"
+                    nzType="file-excel" nzTheme="fill" (click)="downloadExcel()"></span>
+                  <p *ngIf="dataAutogestionTable.length === 0"></p>
+                </mark>
+              </nz-list-header>
+              <nz-table class="table-header" [nzLoading]="loaderAutogestionTable" [nzData]="dataAutogestionTable"
+                nzSize="small" nzBordered nzShowPagination="false" [ngStyle]="{whiteSpace: 'nowrap'}"  nzSize="small" [nzScroll]="{ x: 'auto' }">
+                <thead>
+                  <tr>
+                    <th *ngIf="structureData.data.length > 0" [attr.colspan]="
+                        structureData.columns.length -
+                        structureData.months.length
+                      ">
+                      Año
+                    </th>
+                    <ng-container *ngFor="let year of structureData.years">
+                      <ng-container *ngIf="year !== 'total_monto'">
+                        <th [attr.colspan]="
+                            calculateColspanYear(structureData.months, year)
+                          ">
+                          {{ year }}
+                        </th>
+                      </ng-container>
+                    </ng-container>
+                  </tr>
+                  <tr>
+                    <ng-container *ngFor="let column of structureData.columns">
+                      <th *ngIf="column !== 'total_monto'" nzWidth="140px">
+                        {{ setMonth(column) }}
+                      </th>
+                    </ng-container>
+                    <th nzWidth="120px">Total</th>
+                  </tr>
+                </thead>
+                <tbody style="height: 400px">
+                  <tr *ngFor="let fila of structureData.data">
+                    <td *ngFor="let columna of structureData.columns">
+                      {{ setFixed(fila[columna], columna) }}
+                    </td>
+                    <td>
+                      {{ calculateFilaTotal(fila) }}
+                    </td>
+                  </tr>
+                  <th *ngIf="structureData.data.length > 0" [attr.colspan]="
+                      structureData.columns.length - structureData.months.length
+                    ">
+                    Total
+                  </th>
+                  <ng-container *ngFor="let column of structureData.columns; let i = index">
+                    <td *ngIf="
+                        i >
+                        structureData.columns.length -
+                          structureData.months.length -
+                          1
+                      ">
+                      {{ calculateColumnTotal(column) }}
+                    </td>
+                  </ng-container>
+                  <td>
+                    {{ calculateOverallTotal() }}
+                  </td>
+                </tbody>
+              </nz-table>
+              <div class="table-pagination">
+                <nz-pagination [nzPageIndex]="page" [nzTotal]="total" [nzPageSize]="limit"
+                  (nzPageIndexChange)="pageIndexChange($event)"></nz-pagination>
+                <span style="margin-left: 15px;">Total: {{ setFixedToNumber(total) }} registros</span>
+              </div>
+            </nz-list>
+          </div>
+        </div>
+      </div>
+    </nz-layout>
+  </nz-content>
+</nz-layout>

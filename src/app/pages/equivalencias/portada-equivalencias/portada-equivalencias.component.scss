@@ -1,0 +1,66 @@
+.trigger:hover {
+    color: #1890ff;
+  }
+  
+  nz-list-header {
+    padding: 0;
+    text-align: center;
+  
+    mark {
+      display: block;
+      font-weight: bold;
+      background-color: rgb(233, 229, 15);
+      width: 100%;
+    }
+  }
+
+  .table-header {
+    th, tfoot>tr {
+      padding: 0 !important;
+      text-align: center;
+      background-color: lightslategrey;
+      color: white;
+      font-weight: 500;
+    }
+    td {
+      padding: 0 !important;
+      text-align: center;
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    height: 85vh;
+  }
+
+  .container div[nz-col] {
+    width: 50%; /* Ajusta este valor según tus necesidades */
+  }
+
+  .my-table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+    white-space: nowrap;
+  }
+  
+  .my-table th, .my-table td {
+    white-space: nowrap;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .my-table {
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+        white-space: nowrap;
+    }
+  
+    .my-table th, .my-table td {
+        white-space: nowrap;
+    }
+    .container div[nz-col] {
+      width: 100%;
+    }
+  }

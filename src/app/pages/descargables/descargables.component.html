@@ -1,0 +1,60 @@
+<div class="content-title">
+  <h3>Progreso de Descarga</h3>
+</div>
+<div class="example-large-box mat-elevation-z4">
+  <nz-table #smallTable nzSize="small" [nzData]="listOfData" [nzLoading]="loaderAutogestionTable" [nzShowPagination]="false" [nzScroll]="{ x: '1200px' }">
+    <thead>
+      <tr>
+        <th>Archivo</th>
+        <th>JobID</th>
+        <th>User</th>
+        <th>Rol</th>
+        <th>Fecha Inicio</th>
+        <th>Fecha Fin</th>
+        <th>Recurso</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="listOfData.length > 0">
+        <tr *ngFor="let data of listOfData">
+          <td>
+            <a [href]="data.input_name_file_link">{{ data.input_name_file }}</a>
+          </td>
+          <td>{{ data.job_id }}</td>
+          <td>{{ data.user_id }}</td>
+          <td>{{ data.rol_id }}</td>
+          <td>{{ data.start_date }}</td>
+          <td>{{ data.end_date }}</td>
+          <td>{{ data.type_resource }}</td>
+          <div>
+            <span>Excel</span>
+            <nz-progress
+              [nzPercent]="data.state_excel"
+              nzSize="small"
+              [nzStrokeWidth]="10"
+            ></nz-progress>
+          </div>
+        </tr>
+      </ng-container> 
+    </tbody>
+  </nz-table>
+  <div
+    style="
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px 0;
+    "
+  >
+    <div class="table-pagination">
+      <nz-pagination
+        [nzPageIndex]="page"
+        [nzTotal]="total"
+        [nzPageSize]="limit"
+        (nzPageIndexChange)="pageIndexChange($event)"
+      >
+      </nz-pagination>
+    </div>
+  </div>
+</div>

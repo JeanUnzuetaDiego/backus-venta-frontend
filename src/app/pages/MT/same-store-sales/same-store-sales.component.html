@@ -1,0 +1,313 @@
+<div class="container-main">
+  <div class="app-layout">
+    <div class="header-same-store-sales">
+      <div class="container-date">
+        <h4 class="title-date"><strong>Fecha</strong></h4>
+        <div class="content-date">
+          <div class="items">
+            <nz-date-picker style="width: 100%;" [nzDisabledDate]="disabledFilterStartDate" nzFormat="yyyy-MM-dd"
+              nzAllowClear="false" [(ngModel)]="filterStartDate" nzPlaceHolder="Fecha inicio"
+              (nzOnOpenChange)="handleFilterStartDateOpenChange($event)"></nz-date-picker>
+          </div>
+          <div class="items">
+            <nz-date-picker style="width: 100%;" #filterEndDatePicker [nzDisabledDate]="disabledFilterEndDate"
+              nzAllowClear="false" nzFormat="yyyy-MM-dd" [(ngModel)]="filterEndDate" nzPlaceHolder="Fecha fin">
+            </nz-date-picker>
+          </div>
+          <div>
+            <button nz-button nz-tooltip nzTooltipTitle="Aplicar Filtro" [nzLoading]="loadingDataFilterDate"
+              nzType="default" nzShape="circle"
+              (click)="applyFilters()"><span nz-icon nzType="search"></span>
+            </button>
+          </div>
+        </div>
+        <p style="margin: 0;"></p>
+      </div>
+      <div class="container-filtro-sss">
+        <h4 class="title-filtro-sss"><strong>Filtro SSS</strong></h4>
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Seleccione un filtro" [(ngModel)]="sssFilter"
+          (ngModelChange)="onChangeSSSFilter($event)">
+          <nz-option nzLabel="Aperturas" nzValue="filt_apertura"></nz-option>
+          <nz-option nzLabel="SSS" nzValue="filt_sss"></nz-option>
+          <nz-option nzLabel="Todas" nzValue="filt_all"></nz-option>
+        </nz-select>
+      </div>
+      <div class="container-soles-hl">
+        <h4 class="title-soles-hl">1: S/. | 2: HL</h4>
+        <div class="content-switch">
+          <nz-switch [ngModel]="typeFilterSwith" nzCheckedChildren="1" nzUnCheckedChildren="2"
+            (ngModelChange)="onChangeSwitch($event)"></nz-switch>
+        </div>
+        <p style="margin: 0;"></p>
+      </div>
+    </div>
+  
+    <div class="mi-menu">
+      <!-- Modal de Menu Filtro -->
+      <app-drawer-wrapper textPlaceholder="Buscar Filtros-Menu" [filterItems]="listConfigurationMenu" [typeOptionMenu]="typeOptionMenu"
+      (changeFilterItems)="handleFilterMenu($event)"></app-drawer-wrapper>
+      
+        <div class="main-content">
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+  
+            <div class="firts-block">
+              <div class="container-variacion-total">
+                <h4><strong>Variación Total</strong></h4>
+                <div *ngIf="loaderVarTable" class="spinner-centered">
+                    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+                </div>
+                <div #chartVarTotal style="width: 400px; height: 400px;"></div>
+              </div>
+    
+              <div class="container-crecimiento">
+                <div class="content-crecimiento-total">
+                  <h4><strong>Crecimiento Total</strong></h4>
+                  <div>
+                    <h1 *ngIf="!loaderVarTable" style="text-align: center;">
+                      {{ totalCrecimientoApertura | number:'1.2-2'}}%
+                    </h1>
+                    <div *ngIf="loaderVarTable">
+                      <nz-spin nzSimple></nz-spin>
+                    </div>
+                  </div>
+                  <p style="margin: 0;"></p>
+                </div>
+                <div class="content-crecimiento-sss">
+                  <h4><strong>Crecimiento SSS</strong></h4>
+                  <div>
+                    <h1 *ngIf="!loaderVarTable" style="text-align: center;">
+                      {{ totalCrecimientoSSS | number:'1.2-2'}}%
+                    </h1>
+                    <div *ngIf="loaderVarTable">
+                      <nz-spin nzSimple></nz-spin>
+                    </div>
+                  </div>
+                  <p style="margin: 0;"></p>
+                </div>
+              </div>
+    
+              <div class="container-comparaivo-sell-out-inter-anual-primero">
+                <h4><strong>Comparativo Sell Out Inter Anual</strong></h4>
+                <div *ngIf="loaderVarTable" class="spinner-centered">
+                  <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+                </div>
+                <div class="content-grafico">
+                  <div #chartComparativo1 class="grafico"></div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="container-comparative-sell-out-inter-anual-segundo">
+              <h4><strong>Comparativo Sell Out Inter Anual</strong></h4>
+                <div *ngIf="loaderVarTable" class="spinner-centered">
+                  <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+                </div>
+                <div class="container-comparative-sell-out-inter-anual-segundo-grafico">
+                  <div #chartComparativo2 style="width: 100%;height: 400px;"></div>
+                </div>
+            </div>
+  
+          </div>
+  
+          <div class="container-table">
+            <h4><strong>Variación por Cadena | Formato | Tienda</strong></h4>
+            <div #chartVarTotal>
+              @if(dataTableVar && dataTableVar.length > 0) {
+              <nz-table [nzLoading]="loaderVarTable" #expandTable
+                [nzData]="dataTableVar" nzBordered nzShowPagination="false"
+                [ngStyle]="{whiteSpace: 'nowrap'}"  nzSize="small" [nzScroll]="{ x: 'auto' }">
+                <thead>
+                  <tr>
+                    <th [colspan]="3">Var(%) SSS</th>
+                    <th *ngIf="isTableVarApertura" [colspan]="3">Aperturas</th>
+                    <th *ngIf="isTableVarSSS" [colspan]="3">SSS</th>
+                    <th [colspan]="3">Total</th>
+                  </tr>
+                  <tr>
+                    <th [colspan]="3">Retail</th>
+                    <th *ngIf="isTableVarApertura">SO PA</th>
+                    <th *ngIf="isTableVarApertura">SO</th>
+                    <th *ngIf="isTableVarApertura">Var(%)</th>
+                    <th *ngIf="isTableVarSSS">SO PA</th>
+                    <th *ngIf="isTableVarSSS">SO</th>
+                    <th *ngIf="isTableVarSSS">Var(%)</th>
+                    <th>SO PA</th>
+                    <th>SO</th>
+                    <th>Var(%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngFor="let data of expandTable.data">
+                    <ng-container *ngFor="let item of mapOfExpandedDataSome[data.key]">
+                      <tr *ngIf="(item.parent && item.parent.expand) || !item.parent">
+                        <td [nzIndentSize]="item.level! * 20" [nzShowExpand]="!!item.children"
+                          [(nzExpand)]="item.expand"
+                          (nzExpandChange)="collapseSome(mapOfExpandedDataSome[data.key], item, $event)"> </td>
+                        <td colspan="2"> {{ item.description }}</td>
+                        <td *ngIf="isTableVarApertura" style="text-align: right;">{{ item?.total_apertura_pa |
+                          number:'1.2-2' }}</td>
+                        <td *ngIf="isTableVarApertura" style="text-align: right;">{{ item?.total_apertura |
+                          number:'1.2-2' }}</td>
+                        <td *ngIf="isTableVarApertura" style="text-align: right; white-space: nowrap;">
+                          <div class="cell-content"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <div
+                              [ngClass]="{'triangle-down': item.total_apertura_var < 0, 'triangle-up': item.total_apertura_var >= 0}"
+                              class="triangle"></div>
+                            <div>
+                              {{ redondearSiEsNecesario(item?.total_apertura_var,true) }}
+                            </div>  
+                          </div>
+                        </td>
+                        <td *ngIf="isTableVarSSS" style="text-align: right;">{{ item?.total_sss_pa | number:'1.2-2' }}
+                        </td>
+                        <td *ngIf="isTableVarSSS" style="text-align: right;">{{ item?.total_sss | number:'1.2-2' }}
+                        </td>
+                        <td *ngIf="isTableVarSSS" style="text-align: right; white-space: nowrap;">
+                          <div class="cell-content"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <div
+                              [ngClass]="{'triangle-down': item.total_sss_var < 0, 'triangle-up': item.total_sss_var >= 0}"
+                              class="triangle"></div>
+                            <div>
+                              {{ redondearSiEsNecesario(item?.total_sss_var,true) }}
+                            </div>
+                          </div>
+                        </td>
+                        <td *ngIf="isTableVarApertura && isTableVarSSS" style="text-align: right;">{{
+                          item?.total_sum_so_pa | number:'1.2-2' }}</td>
+                        <td *ngIf="isTableVarApertura && !isTableVarSSS" style="text-align: right;">{{
+                          item?.total_apertura_pa | number:'1.2-2' }}</td>
+                        <td *ngIf="!isTableVarApertura && isTableVarSSS" style="text-align: right;">{{
+                          item?.total_sss_pa | number:'1.2-2' }}</td>
+                        <!-- <td style="text-align: right;">{{ item?.total_sum_so_pa | number:'1.2-2' }}</td> -->
+                        <td *ngIf="isTableVarApertura && isTableVarSSS" style="text-align: right;">{{
+                          item?.total_sum_so | number:'1.2-2' }}</td>
+                        <td *ngIf="isTableVarApertura && !isTableVarSSS" style="text-align: right;">{{
+                          item?.total_apertura | number:'1.2-2' }}</td>
+                        <td *ngIf="!isTableVarApertura && isTableVarSSS" style="text-align: right;">{{ item?.total_sss
+                          | number:'1.2-2' }}</td>
+                        <td *ngIf="isTableVarApertura && isTableVarSSS"
+                          style="text-align: right; white-space: nowrap;">
+                          <div class="cell-content"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <div
+                              [ngClass]="{'triangle-down': item.total_sum_so_var < 0, 'triangle-up': item.total_sum_so_var >= 0}"
+                              class="triangle"></div>
+                            <div>
+                              {{ redondearSiEsNecesario(item?.total_sum_so_var,true) }}
+                            </div>
+                          </div>
+                        </td>
+                        <td *ngIf="isTableVarApertura && !isTableVarSSS"
+                          style="text-align: right; white-space: nowrap;">
+                          <div class="cell-content"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <div
+                              [ngClass]="{'triangle-down': item.total_apertura_var < 0, 'triangle-up': item.total_apertura_var >= 0}"
+                              class="triangle"></div>
+                            <div>
+                              {{ redondearSiEsNecesario(item?.total_apertura_var,true) }}
+                            </div>
+                          </div>
+                        </td>
+                        <td *ngIf="!isTableVarApertura && isTableVarSSS"
+                          style="text-align: right; white-space: nowrap;">
+                          <div class="cell-content"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <div
+                              [ngClass]="{'triangle-down': item.total_sss_var < 0, 'triangle-up': item.total_sss_var >= 0}"
+                              class="triangle"></div>
+                            <div>
+                              {{ redondearSiEsNecesario(item?.total_sss_var,true) }}
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+                </tbody>
+                @if(dataTableVar && dataTableVar.length > 0){
+                  <tfoot class="tfoot-fixed">
+                    <tr>
+                      <td colspan="3" style="background-color: lightslategrey; color: #fff;">Total</td>
+                      <td style="white-space: nowrap; background-color: white; color: black; text-align: right" *ngIf="isTableVarApertura">{{totalesCadenas.total_apertura_pa | number:'1.2-2'}}</td>
+                      <td style="white-space: nowrap; background-color: white; color: black; text-align: right" *ngIf="isTableVarApertura">{{totalesCadenas.total_apertura | number:'1.2-2'}}</td>
+                      <td style="white-space: nowrap; background-color: white; color: black; text-align: right" *ngIf="isTableVarApertura">
+                        <div class="cell-content"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <div
+                              [ngClass]="{'triangle-down': totalesCadenas?.total_apertura_var < 0, 'triangle-up': totalesCadenas?.total_apertura_var >= 0}"
+                              class="triangle"></div>
+                            <div>
+                              {{ redondearSiEsNecesario(totalesCadenas?.total_apertura_var,true) }}
+                            </div>  
+                        </div>
+                      </td>
+                      <td style="white-space: nowrap; background-color: white; color: black; text-align: right" *ngIf="isTableVarSSS">{{totalesCadenas.total_sss_pa | number:'1.2-2'}}</td>
+                      <td style="white-space: nowrap; background-color: white; color: black; text-align: right" *ngIf="isTableVarSSS">{{totalesCadenas.total_sss | number:'1.2-2'}}</td>
+                      <td style="white-space: nowrap; background-color: white; color: black; text-align: right" *ngIf="isTableVarSSS">
+                        <div class="cell-content"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <div
+                              [ngClass]="{'triangle-down': totalesCadenas?.total_sss_var < 0, 'triangle-up': totalesCadenas?.total_sss_var >= 0}"
+                              class="triangle"></div>
+                            <div>
+                              {{ redondearSiEsNecesario(totalesCadenas?.total_sss_var,true) }}
+                            </div>  
+                        </div>
+                      </td>
+                      <td style="white-space: nowrap; background-color: white; color: black; text-align: right" >{{totalesCadenas.total_sum_so_pa | number:'1.2-2'}}</td>
+                      <td style="white-space: nowrap; background-color: white; color: black; text-align: right" >{{totalesCadenas.total_sum_so | number:'1.2-2'}}</td>
+                      <td style="white-space: nowrap; background-color: white; color: black; text-align: right" >
+                        <div class="cell-content"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <div
+                              [ngClass]="{'triangle-down': totalesCadenas?.total_sum_so_var < 0, 'triangle-up': totalesCadenas?.total_sum_so_var >= 0}"
+                              class="triangle"></div>
+                            <div>
+                              {{ redondearSiEsNecesario(totalesCadenas?.total_sum_so_var,true) }}
+                        </div>  
+                        </div>
+                      </td>
+                      <!-- <td style="white-space: nowrap; background-color: white; color: black; " >S/. {{ totalPrecioVenta | number:'1.2-2' }}</td> -->
+                    </tr>
+                  </tfoot>
+                }
+              </nz-table>
+              } @else {
+              <nz-table class="table-header" class="table-header" [nzLoading]="loaderVarTable" nzTableLayout="fixed"
+                nzSize="small" nzBordered nzShowPagination="false" style="overflow-x: auto;"
+                [nzScroll]="{ x: 'auto'}">
+                <thead>
+                  <tr>
+                    <th [colspan]="3">Var(%) SSS</th>
+                    <th *ngIf="isTableVarApertura" [colspan]="3">Aperturas</th>
+                    <th *ngIf="isTableVarSSS" [colspan]="3">SSS</th>
+                    <th [colspan]="3">Total</th>
+                  </tr>
+                  <tr>
+                    <th [colspan]="3">Retail</th>
+                    <th *ngIf="isTableVarApertura">SO PA</th>
+                    <th *ngIf="isTableVarApertura">SO</th>
+                    <th *ngIf="isTableVarApertura">Var(%)</th>
+                    <th *ngIf="isTableVarSSS">SO PA</th>
+                    <th *ngIf="isTableVarSSS">SO</th>
+                    <th *ngIf="isTableVarSSS">Var(%)</th>
+                    <th>SO PA</th>
+                    <th>SO</th>
+                    <th>Var(%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </nz-table>
+              }
+            </div>
+          </div>
+  
+        </div>
+    
+    </div>
+  </div>
+</div>

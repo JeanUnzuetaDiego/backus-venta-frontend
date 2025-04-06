@@ -1,0 +1,535 @@
+<nz-layout class="app-layout">  
+  <nz-header>
+      <div class="app-header">
+        <div class="outer-container" style="width: 100%; max-width: 100%; margin: auto;">
+        <div nz-row>
+          <div nz-col [ngClass]="isMobile ? 'menu-float' : null"  [nzMd]="2" [nzLg]="1">
+            <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+              <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
+            </span>
+          </div>
+
+          <div nz-col [nzSm]="18" [nzMd]="12" [nzLg]="4" [nzXs]="18"  class="desktop-padding">
+            <nz-list nzBordered nzSize="small">
+              <nz-list-header style="padding: 0; text-align: center;"><mark style="display: block; ">Filtro
+                  Temporal</mark></nz-list-header>
+              <nz-list-item>
+                <nz-row>
+                  <div nz-col [nzXs]="12">
+                    <nz-date-picker style="width: 100%;" [nzDisabledDate]="disabledFilterStartDate" nzFormat="yyyy-MM-dd" nzAllowClear="false"
+                      [(ngModel)]="filterStartDate" nzPlaceHolder="Fecha inicio"
+                      (nzOnOpenChange)="handleFilterStartDateOpenChange($event)"></nz-date-picker>
+                  </div>
+                  <div nz-col [nzXs]="12">
+                    <nz-date-picker style="width: 100%;" #filterEndDatePicker [nzDisabledDate]="disabledFilterEndDate" nzAllowClear="false"
+                      nzFormat="yyyy-MM-dd" [(ngModel)]="filterEndDate" nzPlaceHolder="Fecha fin"
+                      (nzOnOpenChange)="handleFilterEndDateOpenChange($event)"></nz-date-picker>
+                  </div>
+                </nz-row>
+              </nz-list-item>
+            </nz-list>
+          </div>
+
+          <div nz-col [nzSm]="6" [nzMd]="12" [nzLg]="2" [nzXs]="6">
+            <nz-list nzBordered nzSize="small">
+              <nz-list-header style="padding: 0; text-align: center;"><mark style="display: block;">(PA)</mark></nz-list-header>
+              <nz-list-item>
+                <nz-select [(ngModel)]="filterIntervalYear" (ngModelChange)="onFilterIntervalYearChange($event)"
+                  style="width: 100%;">
+                  <nz-option nzValue="1" nzLabel="Y-1"></nz-option>
+                  <nz-option nzValue="2" nzLabel="Y-2"></nz-option>
+                  <nz-option nzValue="3" nzLabel="Y-3"></nz-option>
+                </nz-select>
+              </nz-list-item>
+            </nz-list>
+          </div>
+
+          <div nz-col [nzSpan]="24" [nzLg]="17" class="desktop-padding">
+            <nz-list nzBordered nzSize="small">
+              <nz-list-header style="padding: 0; text-align: center;"><mark style="display: block;">KPI's de
+                  Gestión</mark></nz-list-header>
+              <nz-list-item nz-row style="padding: 0;">
+                <div nz-col [nzSpan]="24" [nzLg]="3" [nzXs]="12">
+                  <nz-list nzBordered nzSize="small">
+                    <nz-list-item style="padding: 0;">2,444,859.34</nz-list-item>
+                    <nz-list-item style="padding: 0;"><b>Sell Out Hl</b></nz-list-item>
+                  </nz-list>
+                </div>
+                <div nz-col [nzSpan]="24" [nzLg]="3" [nzXs]="12">
+                  <nz-list nzBordered nzSize="small">
+                    <nz-list-item style="padding: 0;">-29.20%</nz-list-item>
+                    <nz-list-item style="padding: 0;"><b>Crecimiento HL</b></nz-list-item>
+                  </nz-list>
+                </div>
+                <div nz-col [nzSpan]="24" [nzLg]="3" [nzXs]="12">
+                  <nz-list nzBordered nzSize="small">
+                    <nz-list-item style="padding: 0;">S/1,399,494,403.72</nz-list-item>
+                    <nz-list-item style="padding: 0;"><b>Sell Out S/</b></nz-list-item>
+                  </nz-list>
+                </div>
+                <div nz-col [nzSpan]="24" [nzLg]="3" [nzXs]="12">
+                  <nz-list nzBordered nzSize="small">
+                    <nz-list-item style="padding: 0;">-24.66%</nz-list-item>
+                    <nz-list-item style="padding: 0;"><b>Crecimiento S/ (PA)</b></nz-list-item>
+                  </nz-list>
+                </div>
+                <div nz-col [nzSpan]="24" [nzLg]="4" [nzXs]="12">
+                  <nz-list nzBordered nzSize="small">
+                    <nz-list-item style="padding: 0;">10.357.146</nz-list-item>
+                    <nz-list-item style="padding: 0;"><b>Stock Un</b></nz-list-item>
+                  </nz-list>
+                </div>
+                <div nz-col [nzSpan]="24" [nzLg]="4" [nzXs]="12">
+                  <nz-list nzBordered nzSize="small">
+                    <nz-list-item style="padding: 0;">51,336.42</nz-list-item>
+                    <nz-list-item style="padding: 0;"><b>Stock HL</b></nz-list-item>
+                  </nz-list>
+                </div>
+                <div nz-col [nzSpan]="24" [nzLg]="4" [nzXs]="12">
+                  <nz-list nzBordered nzSize="small">
+                    <nz-list-item style="padding: 0;">S/6.66</nz-list-item>
+                    <nz-list-item style="padding: 0;"><b>Precio Unitario PVP+IGV</b></nz-list-item>
+                  </nz-list>
+                </div>
+              </nz-list-item>
+            </nz-list>
+          </div>
+        </div>
+      </div>
+    </div>
+    </nz-header>
+  
+  <nz-content class="mi-contenido">
+    <nz-layout style="margin-top: 0;">
+      <nz-sider class="menu-sidebar" nzCollapsible [nzWidth]="isCollapsed ? '80px' : '256px'" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+        <div class="subtitle-sidebar">
+          <mark>Punto de Venta</mark>
+        </div>
+        <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+          <li nz-submenu nzTitle="Nombre Backus" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Backus 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Backus 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Backus 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Backus 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Retail" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Retail 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Retail 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Retail 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Retail 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Formato" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Formato 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Formato 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Formato 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Formato 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Dirección Backus" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Dirección 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Dirección 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Dirección 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Dirección 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Zona Nielsen" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Zona Nielsen 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Zona Nielsen 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Zona Nielsen 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Zona Nielsen 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Gerencia Backus" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Gerencia Backus 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Gerencia Backus 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Gerencia Backus 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Gerencia Backus 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Sub Canal Backus" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Sub Canal Backus 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Sub Canal Backus 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Sub Canal Backus 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Sub Canal Backus 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Cluster Backus" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Cluster Backus 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Cluster Backus 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Cluster Backus 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Cluster Backus 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Supervisor Backus" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Supervisor Backus 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Supervisor Backus 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Supervisor Backus 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Supervisor Backus 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Cobertura" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Cobertura 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Cobertura 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Cobertura 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Cobertura 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="CD MASS" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>CD MASS 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>CD MASS 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>CD MASS 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>CD MASS 1</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <div class="subtitle-sidebar">
+          <mark>Atributos Cliente</mark>
+        </div>
+        <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+          <li nz-submenu nzTitle="Descripción Norma" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Descripción Norma 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Descripción Norma 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Descripción Norma 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Descripción Norma 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Categoría" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Categoría 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Categoría 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Categoría 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Categoría 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Sub Categoría" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Sub Categoría 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Sub Categoría 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Sub Categoría 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Sub Categoría 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="KPI SKU" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>KPI SKU 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>KPI SKU 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>KPI SKU 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>KPI SKU 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Marca" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Marca 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Marca 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Marca 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Marca 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Tipo" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Tipo 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Tipo 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Tipo 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Tipo 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Capacida Norma" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Capacida Norma 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Capacida Norma 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Capacida Norma 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Capacida Norma 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Formato Norma" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Formato Norma 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Formato Norma 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Formato Norma 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Formato Norma 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Formato de Venta" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Formato de Venta 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Formato de Venta 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Formato de Venta 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Formato de Venta 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Tipo de Envase" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>Tipo de Envase 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Tipo de Envase 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Tipo de Envase 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>Tipo de Envase 1</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="SERVE" nzIcon="dashboard">
+            <ul>
+              <li nz-menu-item>
+                <a>SERVE 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>SERVE 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>SERVE 1</a>
+              </li>
+              <li nz-menu-item>
+                <a>SERVE 1</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nz-sider>
+
+      <div class="outer-container" style="width: 100%; max-width: 90%; margin: auto;">
+        <div class="inner-content">
+          <div nz-row  [nzGutter]="4"> 
+            <div nz-row >
+              <div style="display: flex; flex-direction: column;">
+                <div class="flex-item">
+                  <nz-list nzBordered nzSize="small">
+                    <nz-list-header style="padding: 0; text-align: center;"><mark style="display: block;">Comparativo Sell Out Inter Anual</mark></nz-list-header>
+                    <nz-list-item>
+                      <div id="sellOutHlLineChart" style="width: 600px;height:150px;"></div>
+                    </nz-list-item>
+                  </nz-list>
+                </div>
+                
+                <div class="flex-item">
+                  <nz-list nzBordered nzSize="small">
+                    <nz-list-header style="padding: 0; text-align: center;"><mark style="display: block;">Comparativo Sell Out Inter Anual</mark></nz-list-header>
+                    <nz-list-item>
+                      <div id="sellOutLineChart" style="width: 600px;height:150px;"></div>
+                    </nz-list-item>
+                  </nz-list>
+                </div>
+                <div class="flex-item">
+                  <nz-list nzBordered nzSize="small">
+                    <nz-list-header style="padding: 0; text-align: center;"><mark style="display: block;">Comparativo Sell Out Inter Anual</mark></nz-list-header>
+                    <nz-list-item>
+                      <div id="middlePriceLineChart" style="width: 600px;height:150px;"></div>
+                    </nz-list-item>
+                  </nz-list>
+                </div>
+                <div class="flex-item">
+                  <nz-list nzBordered nzSize="small">
+                    <nz-list-header style="padding: 0; text-align: center;"><mark style="display: block;">Comparativo Sell Out Inter Anual</mark></nz-list-header>
+                    <nz-list-item>
+                      <div id="sellOutTreemapChart" style="width: 600px;height:400px;"></div>
+                    </nz-list-item>
+                  </nz-list>
+                </div>
+              </div>
+
+                <div nz-col [nzSpan]="24" [nzLg]="10">
+                  <div style="display: flex; flex-direction: column;">
+                    <div class="flex-item">
+                      <nz-list nzBordered nzSize="small">
+                        <nz-list-header style="padding: 0; text-align: center;"><mark style="display: block;">Comparativo Sell Out Inter Anual</mark></nz-list-header>
+                        <nz-list-item>
+                          <div id="saleMultipleDynamicChart" style="width: 600px;height:400px;"></div>
+                        </nz-list-item>
+                      </nz-list>
+                    </div>
+                    <div class="flex-item">
+                      <nz-list nzBordered nzSize="small">
+                        <nz-list-header style="padding: 0; text-align: center;"><mark style="display: block;">Comparativo Sell Out Inter Anual</mark></nz-list-header>
+                        <nz-list-item>
+                          <div id="retailVariationNegativeChart" style="width: 600px;height:400px;"></div>
+                        </nz-list-item>
+                      </nz-list>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </nz-layout>
+  </nz-content>
+</nz-layout>

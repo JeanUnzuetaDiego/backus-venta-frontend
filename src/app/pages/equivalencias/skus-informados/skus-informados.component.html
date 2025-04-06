@@ -1,0 +1,120 @@
+<nz-list nzBordered nzSize="small" >
+  <!-- <nz-list-header style="padding: 0; text-align: center">
+    <mark style="display: block">Equivalencias SKU</mark>
+  </nz-list-header> -->
+  <div class="inner-content">
+    <div>
+      <div class="mobile-margin">
+        <nz-list nzBordered nzSize="small">
+          <nz-list-header style="padding: 0; text-align: center;">
+            <mark
+              ><div class="title-table">Equivalencias SKU</div>
+            </mark>  
+          </nz-list-header>
+          <nz-table [nzShowPagination]="false" class="table-header" [nzLoading]="spiner"
+            [nzData]="listSkusInformados" nzSize="small" nzBordered [nzScroll]="{ x: '100vw' }">
+            <thead>
+              <tr>
+                <th nzLeft="0px" nzWidth="100px">Cadena ID
+                  <app-filter-search-table-excel textPlaceholder="Buscar Cadena ID" [filterItems]="filterNameCadenaID"
+                          (changeFilterItems)="handleFilterCadenaID($event)"></app-filter-search-table-excel>
+                </th>
+                <th nzLeft="100px" nzWidth="150px">SKU Cadena
+                  <app-filter-search-table-excel textPlaceholder="Buscar SKU Cadena" [filterItems]="filterNameSKUCadena"
+                          (changeFilterItems)="handleFilterSKUCadena($event)"></app-filter-search-table-excel>
+                </th>
+                <th nzLeft="250px" nzWidth="150px">SKU Backus
+                  <app-filter-search-table-excel textPlaceholder="Buscar SKU Backus" [filterItems]="filterNameSKUBackus"
+                          (changeFilterItems)="handleFilterSKUBackus($event)"></app-filter-search-table-excel>
+                </th>
+                <th nzWidth="400px">Descripcion Cadena
+                  <!-- <app-filter-search-table-excel textPlaceholder="Buscar Descripcion Cadena" [filterItems]="filterNameDescripcionCadena"
+                          (changeFilterItems)="handleFilterDescripcionCadena($event)"></app-filter-search-table-excel> -->
+                </th>
+                <th nzWidth="400px">Descripcion Backus
+                  <!-- <app-filter-search-table-excel textPlaceholder="Buscar Descripcion Backus" [filterItems]="filterNameDescripcionBackus"
+                          (changeFilterItems)="handleFilterDescripcionBackus($event)"></app-filter-search-table-excel> -->
+                </th>
+                <th nzWidth="400px">Descripcion Norma Backus</th>
+                <th nzWidth="150px">Categoria Backus</th>
+                <th nzWidth="150px">Subcategoria Backus</th>
+                <th nzWidth="120px">KPI Backus</th>
+                <th nzWidth="250px">Marca Backus</th>
+                <th nzWidth="320px">Tipo Backus</th>
+                <th nzWidth="120px">Unidad Cadena</th>
+                <th nzWidth="120px">Unidad Backus</th>
+                <th nzWidth="100px">Capacidad Backus</th>
+                <th nzWidth="150px">Capacidad Norma Backus</th>
+                <th nzWidth="150px">Tipo Envase Backus</th>
+                <th nzWidth="150px">Formato Backus</th>
+                <th nzWidth="150px">Formato Norma Backus</th>
+                <th nzWidth="150px">Formato Venta Backus</th>
+                <th nzWidth="200px">Factor conversion cencosud backus</th>
+                <th nzWidth="150px">Serve Backus</th>
+                <th nzWidth="120px">Cobertura Backus</th>
+                <th nzWidth="150px">Producción Backus</th>
+                <th nzWidth="150px">KPI Formato Backus</th>
+                <th nzWidth="150px">Envase Backus</th>
+                <th nzWidth="120px">Stock Out Backus</th>
+                <th nzWidth="200px">Factor_conversion_cambio_corona_backus</th>
+                <th nzWidth="180px">Usuario de Creacion</th>
+                <th nzWidth="180px">Usuario de Modificación</th>
+                <th nzWidth="200px">Fecha Tiempo Creacion</th>
+                <th nzWidth="200px">Fecha Tiempo Modificacion</th>
+                <th nzWidth="75px" nzRight>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listSkusInformados">
+                <td class="text-center" nzLeft="0px" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.cadena_id }}</td>
+                <td class="text-center" nzLeft="100px" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.sku_cadena }}</td>
+                <td class="text-center" nzLeft="250px" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.sku_backus }}</td>
+                <td class="text-left" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.descripcion_cadena }}</td>
+                <td class="text-left" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.descripcion_backus }}</td>
+                <td class="text-left" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.descripcion_norma_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.categoria_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.subcategoria_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.kpi_backus }}</td>
+                <td class="text-left" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.marca_backus }}</td>
+                <td class="text-left" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.tipo_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.unidad_cadena }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.unidad_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.capacidad_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.capacidad_norma_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.tipo_envase_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.formato_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.formato_norma_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.formato_venta_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.factor_conversion_cencosud_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.serve_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.cobertura_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.produccion_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.kpi_formato_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.envase_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.stock_out_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.factor_conversion_cambio_corona_backus }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.usuario_id_creacion }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.usuario_id_modificacion }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.fecha_tiempo_creacion | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                <td class="text-center" [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">{{ item.fecha_tiempo_modificacion | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                <td class="text-center" nzRight [class.selected]="toJSONString(item) === selectedRow" (click)="selectRow(item)">
+                  <button nz-button nzType="primary" nzSize="small" (click)="editSKU(item, $event)" > <span nz-icon nzType="edit"></span></button>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </nz-list>
+      </div>
+    </div>
+    <div class="table-pagination">
+      <nz-pagination
+      [nzPageIndex]="page"
+      [nzTotal]="total"
+      [nzPageSize]="limit"
+      (nzPageIndexChange)="pageIndexChange($event)"
+      >
+     </nz-pagination>
+     <span style="margin-left: 15px;">Total: {{ setFixedToNumber(total) }} registros</span>
+    </div>
+  </div>
+</nz-list>

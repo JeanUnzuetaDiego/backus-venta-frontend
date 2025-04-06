@@ -1,0 +1,33 @@
+export interface SkuInformadoDto {
+    cadena_id?: string
+    sku_cadena?: string
+    sku_backus?: string
+    descripcion_cadena?: string
+    descripcion_backus?: string
+    descripcion_norma_backus?: string
+    categoria_backus?: string
+    subcategoria_backus?: string
+    kpi_backus?: string
+    marca_backus?: string
+    tipo_backus?: string
+    unidad_cadena?: number
+    unidad_backus?: number
+    capacidad_backus?: number
+    capacidad_norma_backus?: string
+    tipo_envase_backus?: string
+    formato_backus?: string
+    formato_norma_backus?: string
+    formato_venta_backus?: string
+    factor_conversion_cencosud_backus?: number
+    serve_backus?: string
+    cobertura_backus?: number
+    produccion_backus?: string
+    kpi_formato_backus?: string
+    envase_backus?: string
+    stock_out_backus?: number
+    factor_conversion_cambio_corona_backus?: number
+    usuario_id_creacion?: string
+    usuario_id_modificacion?: string
+    fecha_tiempo_creacion?: string
+    fecha_tiempo_modificacion?: string
+  }

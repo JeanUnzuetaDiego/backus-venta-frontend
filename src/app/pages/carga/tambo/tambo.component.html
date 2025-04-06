@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="content-options">
+      <button nz-button nzType="primary" (click)="uploadFile()">
+          <span nz-icon nzType="plus" nzTheme="outline"></span>
+          Cargar
+        </button>
+      <div class="datePicketFilter">
+        <div>
+          <nz-range-picker [nzSize]="size"></nz-range-picker>
+        </div>
+      </div>
+    </div>
+    <div>
+      <nz-table #smallTable nzSize="small" [nzData]="data" [nzScroll]="{ x: '1200px' }">
+        <thead>
+          <tr>
+            <th nzWidth="120px">Upc</th>
+            <th nzWidth="100px">Sku</th>
+            <th nzWidth="200px">Descripción del Producto</th>
+            <th nzWidth="120px">Marca</th>
+            <th nzWidth="120px">Modelo</th>
+            <th nzWidth="100px">Estado</th>
+            <th nzWidth="100px">Umb</th>
+            <th nzWidth="100px">Surtido</th>
+            <th nzWidth="100px">N° Local</th>
+            <th nzWidth="150px">Nombre Local</th>
+            <th nzWidth="100px">Venta(u)</th>
+            <th nzWidth="150px">Venta al publico(C/IVA)</th>
+            <th nzWidth="150px">Venta en Costo(S/IVA)</th>
+            <th nzWidth="120px">Contribución</th>
+            <th nzWidth="150px">Inventario en Locales(U)</th>
+            <th nzWidth="120px">Tránsito(U)</th>
+            <th nzWidth="200px">Vta Promedio periodo consulta</th>
+            <th nzWidth="150px">Días de inventario</th>
+            <th nzWidth="150px">Inv a Costo(S/IVA)</th>     
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of smallTable.data">
+            <td>{{ data.upc }}</td>
+            <td>{{ data.sku }}</td>
+            <td>{{ data.descripcion }}</td>
+            <td>{{ data.marca }}</td>
+            <td>{{ data.modelo }}</td>
+            <td>{{ data.estado }}</td>
+            <td>{{ data.umb }}</td>
+            <td>{{ data.surtido }}</td>
+            <td>{{ data.nLocal }}</td>
+            <td>{{ data.nombreLocal }}</td>
+            <td>{{ data.ventaU }}</td>
+            <td>{{ data.ventaPublico }}</td>
+            <td>{{ data.ventaCosto }}</td>
+            <td>{{ data.contribucion }}</td>
+            <td>{{ data.inventarioLocales }}</td>
+            <td>{{ data.transito }}</td>
+            <td>{{ data.vtaPromedio }}</td>
+            <td>{{ data.diasInventario }}</td>
+            <td>{{ data.invCosto }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+  

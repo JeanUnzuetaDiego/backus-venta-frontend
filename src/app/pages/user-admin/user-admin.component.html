@@ -1,0 +1,67 @@
+<div class="content-componet example-large-box mat-elevation-z4">
+    <h1 style="text-align: center;">Administración de usuarios</h1>
+
+    <div style="text-align: end; justify-content: right !important; align-items: end;">
+        <button nz-button nzType="primary" (click)="addUser()"><span nz-icon nzType="user-add"></span>Agregar usuario</button>
+    </div>
+
+    <div class="inner-content">
+        <div nz-row [nzGutter]="4">
+
+          <div nz-col [nzSpan]="24" [nzLg]="24" [nzMd]="12" [nzXs]="24"
+            style="width: 100%; display: flex; flex-direction: column;" class="mobile-margin">
+            <nz-list nzBordered nzSize="small">
+              <nz-list-header style="padding: 0; text-align: center;">
+                <mark><div class="title-table">Tabla de Usuarios</div></mark>  
+              </nz-list-header>
+              <nz-table [nzShowPagination]="false" class="table-header" [nzLoading]="loaderUsersTable"
+                [nzData]="listUsers" nzSize="small" nzBordered [nzScroll]="{y: '670px' }">
+                <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th>Fecha Creación</th>
+                    <th>Fecha Actualización</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of listUsers">
+                    <td style="text-align: center;">{{ item.user_id }}</td>
+                    <td style="text-align: center;">{{ item.name }}</td>
+                    <td style="text-align: center;">{{ item.email }}</td>
+                    <td style="text-align: center;">{{ item.role }}</td>
+                    <td style="text-align: center;">{{ item.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td style="text-align: center;">{{ item.updatedAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td style="text-align: center;"> 
+                        @if(item.activate){
+                            <button nz-button [class.green-button]="item.activate" [nzType]="item.activate ? 'dashed' : 'dashed'"> Habilitado <span nz-icon nzType="check-circle"></span></button>
+                        }@else{
+                            <button nz-button [class.grey-button]="!item.activate" [nzType]="item.activate ? 'dashed' : 'dashed'"> Deshabilitado <span nz-icon nzType="close-circle"></span></button>
+                        }
+                    </td>
+                    <td style="text-align: center;">
+                      <button nz-button nzType="primary" nzSize="small" (click)="editUser(item.user_id)"> <span nz-icon nzType="edit"></span>Editar</button>
+                      <!-- <button nz-button nzType="primary" nzSize="small" nzDanger (click)="removeUser(item.user_id)"> <span nz-icon nzType="delete"></span>Eliminar</button> -->
+                    </td>
+                  </tr>
+                </tbody>
+              </nz-table>
+            </nz-list>
+          </div>
+        </div>
+        <div class="table-pagination">
+          <nz-pagination
+          [nzPageIndex]="pageIndex"
+          [nzTotal]="totalRecords"
+          [nzPageSize]="pageSize"
+          (nzPageIndexChange)="handlePageEvent($event)"
+          >
+         </nz-pagination>
+        </div>
+      </div>
+
+  </div>

@@ -1,0 +1,76 @@
+.trigger:hover {
+  color: #1890ff;
+}
+
+nz-list-header {
+  padding: 0;
+  text-align: center;
+  mark {
+    display: block;
+    font-weight: bold; // Esto hará que el texto esté en negrita
+    background-color: rgb(233, 229, 15); // Ajusta este valor al color que prefieras
+    width: 100%; // Agrega esta línea
+  }
+}
+
+.table-header {
+  th, tfoot>tr {
+    padding: 0 !important;
+    text-align: center;
+    background-color: lightslategrey;
+    color: white;
+    font-weight: 500;
+  }
+  td {
+    padding: 0 !important;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
+// ::ng-deep .ant-table-row :hover {
+//   background-color: #FADE37 !important;
+// }
+
+.table-pagination{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.show-full-text {
+  white-space: normal; 
+}
+
+.text-left{
+  text-align: left !important;
+}
+
+::ng-deep .selected {
+  background-color: #FADE37 !important;
+}
+
+.custom-modal .ant-modal-title {
+  background-color: blue !important; /* reemplaza 'blue' con el color que desees */
+}
+
+// ::ng-deep .custom-modal .ant-modal-header {
+//   background-color: rgb(233, 229, 15) !important; /* reemplaza 'blue' con el color que desees */
+// }
+
+::ng-deep .custom-modal .ant-modal-header {
+  background-color: rgb(233, 229, 15) !important; /* reemplaza 'blue' con el color que desees */
+}
+
+::ng-deep .custom-modal .ant-modal-title {
+  font-weight: bold !important;
+}
+
+// ::ng-deep .custom-modal .ant-modal-title {
+//   color: rgba(0, 0, 0, 0.85);
+//   font-weight: bold !important; /* reemplaza 'blue' con el color que desees */
+// }
+
+

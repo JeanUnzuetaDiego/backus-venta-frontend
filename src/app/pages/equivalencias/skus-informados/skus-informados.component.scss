@@ -1,0 +1,65 @@
+.trigger:hover {
+  color: #1890ff;
+}
+
+nz-list-header {
+  padding: 0;
+  text-align: center;
+
+  mark {
+    display: block;
+    font-weight: bold; // Esto hará que el texto esté en negrita
+    background-color: rgb(233, 229, 15); // Ajusta este valor al color que prefieras
+    width: 100%; // Agrega esta línea
+  }
+}
+
+.table-header {
+  th, tfoot>tr {
+    padding: 0 !important;
+    text-align: center;
+    background-color: lightslategrey;
+    color: white;
+    font-weight: 500;
+  }
+  td {
+    padding: 0 !important;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
+.table-pagination{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.total-records {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-left: 20px;
+}
+
+.show-full-text {
+  white-space: normal; 
+}
+
+.text-left{
+  text-align: left !important;
+}
+
+::ng-deep .selected {
+  background-color: #FADE37 !important;
+}
+
+::ng-deep .custom-modal .ant-modal-header {
+  background-color: rgb(233, 229, 15) !important; /* reemplaza 'blue' con el color que desees */
+}
+
+::ng-deep .custom-modal .ant-modal-title {
+  font-weight: bold !important;
+}

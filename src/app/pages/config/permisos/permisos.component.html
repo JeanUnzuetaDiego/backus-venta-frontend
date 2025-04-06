@@ -1,0 +1,76 @@
+<div class="content-title">
+  <h3>Permisos</h3>
+</div>
+<nz-table #smallTable nzSize="small" #fixedTable nzBordered [nzData]="listOfData" [nzScroll]="{ x: '1150px', y: '240px' }">
+  <thead>
+    <tr>
+      <th nzWidth="50px">ID</th>
+      <th nzWidth="90px">Rol</th>
+      <th nzWidth="110px">mt portada</th>
+      <th nzWidth="140px">mt ka summary</th>
+      <th nzWidth="160px">mt analisis precios</th>
+      <th nzWidth="170px">mt tabla autogestion</th>
+      <th nzWidth="130px">mt venta diario</th>
+      <th nzWidth="140px">mt stock & doh</th>
+      <th nzWidth="170px">mt same store sales</th>
+      <th nzWidth="110px">eq portada</th>
+      <th nzWidth="170px">eq skus informados</th>
+      <th nzWidth="190px">eq skus no informados</th>
+      <th nzWidth="140px">eq skus vacios</th>
+      <th nzWidth="190px">eq tiendas informadas</th>
+      <th nzWidth="200px">eq tiendas no informadas</th>
+      <th nzWidth="180px">eq tiendas en blanco</th>
+      <th nzWidth="80px">config</th>
+      <th nzRight nzWidth="80px">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of fixedTable.data">
+      <ng-container *ngIf="!editCache[data.id].edit; else editTemplate">
+        <td>{{ data.id }}</td>
+        <td>{{ data.rol }}</td>
+        <td><input disabled="true" type="checkbox" [(ngModel)]="data.mt_portada" /></td>
+        <td><input disabled="true" type="checkbox" [(ngModel)]="data.mt_ka_summary" /></td>
+        <td><input disabled="true" type="checkbox" [(ngModel)]="data.mt_analisis_precios" /></td>
+        <td><input disabled="true" type="checkbox" [(ngModel)]="data.mt_tabla_autogestion" /></td>
+        <td><input disabled="true" type="checkbox" [(ngModel)]="data.mt_venta_diario" /></td>
+        <td><input disabled="true" type="checkbox" [(ngModel)]="data.mt_stock_doh" /></td>
+        <td><input disabled="true" type="checkbox" [(ngModel)]="data.mt_same_store_sales" /></td>
+        <td><input disabled="true" type="checkbox" [(ngModel)]="data.eq_portada" /></td>
+        <td><input disabled="true" type="checkbox" [(ngModel)]="data.eq_skus_informados" /></td>
+        <td><input disabled="true" type="checkbox" [(ngModel)]="data.eq_skus_no_informados" /></td>
+        <td><input disabled="true" type="checkbox" [(ngModel)]="data.eq_skus_vacios" /></td>
+        <td><input disabled="true" type="checkbox" [(ngModel)]="data.eq_tiendas_informadas" /></td>
+        <td><input disabled="true" type="checkbox" [(ngModel)]="data.eq_tiendas_no_informadas" /></td>
+        <td><input disabled="true" type="checkbox" [(ngModel)]="data.eq_tiendas_en_blanco" /></td>
+        <td><input disabled="true" type="checkbox" [(ngModel)]="data.config" /></td>
+        <td nzRight><a (click)="startEdit(data.id)">Edit</a></td>
+      </ng-container>
+      <ng-template #editTemplate let-data>
+          <td>{{editCache[itemSelected].data.id}}</td>
+          <td>{{editCache[itemSelected].data.rol}}</td>
+          <td><input type="checkbox" [(ngModel)]="editCache[itemSelected].data.mt_portada" /></td>
+          <td><input type="checkbox" [(ngModel)]="editCache[itemSelected].data.mt_ka_summary" /></td>
+          <td><input type="checkbox" [(ngModel)]="editCache[itemSelected].data.mt_analisis_precios" /></td>
+          <td><input type="checkbox" [(ngModel)]="editCache[itemSelected].data.mt_tabla_autogestion" /></td>
+          <td><input type="checkbox" [(ngModel)]="editCache[itemSelected].data.mt_venta_diario" /></td>
+          <td><input type="checkbox" [(ngModel)]="editCache[itemSelected].data.mt_stock_doh" /></td>
+          <td><input type="checkbox" [(ngModel)]="editCache[itemSelected].data.mt_same_store_sales" /></td>
+          <td><input type="checkbox" [(ngModel)]="editCache[itemSelected].data.eq_portada" /></td>
+          <td><input type="checkbox" [(ngModel)]="editCache[itemSelected].data.eq_skus_informados" /></td>
+          <td><input type="checkbox" [(ngModel)]="editCache[itemSelected].data.eq_skus_no_informados" /></td>
+          <td><input type="checkbox" [(ngModel)]="editCache[itemSelected].data.eq_skus_vacios" /></td>
+          <td><input type="checkbox" [(ngModel)]="editCache[itemSelected].data.eq_tiendas_informadas" /></td>
+          <td><input type="checkbox" [(ngModel)]="editCache[itemSelected].data.eq_tiendas_no_informadas" /></td>
+          <td><input type="checkbox" [(ngModel)]="editCache[itemSelected].data.eq_tiendas_en_blanco" /></td>
+          <td><input type="checkbox" [(ngModel)]="editCache[itemSelected].data.config" /></td>
+          
+          <td nzRight>
+            <nz-spin *ngIf="spin" nzSimple></nz-spin>
+            <span *ngIf="!spin" nz-icon nzType="edit" nzTheme="fill" class="save" (click)="saveEdit(itemSelected)" ></span>
+            <span *ngIf="!spin" nz-icon nzType="close" class="close" (click)="cancelEdit(itemSelected)" nzTheme="outline"></span>
+          </td>
+        </ng-template>
+    </tr>
+  </tbody>
+</nz-table>

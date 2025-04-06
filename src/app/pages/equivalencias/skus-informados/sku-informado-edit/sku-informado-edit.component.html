@@ -1,0 +1,297 @@
+
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" nzLayout="vertical">
+    <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; height: 100%;">
+        <nz-spin nzSimple></nz-spin>
+    </div>
+    <div *ngIf="!isLoading">
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Cadena ID</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="cadena_id" placeholder="Ingrese cadena_id" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>SKU Cadena</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="sku_cadena" placeholder="Ingrese sku_cadena" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>SKU Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="sku_backus" placeholder="Ingrese sku_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Descipcion Cadena</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="descripcion_cadena" placeholder="Ingrese descripcion_cadena" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Descripcion Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="descripcion_backus" placeholder="Ingrese descripcion_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Descripcion Norma Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="capacidad_norma_backus"
+                            placeholder="Ingrese capacidad_norma_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Categoria Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="categoria_backus" placeholder="Ingrese categoria_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Subcategoria Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="subcategoria_backus" placeholder="Ingrese subcategoria_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>KPI Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="kpi_backus" placeholder="Ingrese kpi_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Marca Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="marca_backus" placeholder="Ingrese marca_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Tipo Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="tipo_backus" placeholder="Ingrese tipo_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Unidad Cadena</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="unidad_cadena" placeholder="Ingrese unidad_cadena" type="number" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Unidad Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="unidad_backus" placeholder="Ingrese unidad_backus" type="number" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Capacidad Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="capacidad_backus" placeholder="Ingrese capacidad_backus"
+                            type="number" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Capacidad Norma Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="capacidad_norma_backus" placeholder="Ingrese capacidad_norma_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Tipo Envase Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="tipo_envase_backus" placeholder="Ingrese tipo_envase_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Formato Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="formato_backus" placeholder="Ingrese formato_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Formato Norma Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="formato_norma_backus" placeholder="Ingrese formato_norma_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Formato Venta Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="formato_venta_backus" placeholder="Ingrese formato_venta_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Factor conversion cencosud backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="factor_conversion_cencosud_backus"
+                            placeholder="Ingrese factor_conversion_cencosud_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Serve Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="serve_backus" placeholder="Ingrese serve_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Cobertura Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="cobertura_backus" placeholder="Ingrese cobertura_backus"
+                            type="number" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Producción Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="produccion_backus" placeholder="Ingrese produccion_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>KPI Formato Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="kpi_formato_backus" placeholder="Ingrese kpi_formato_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Envase Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="envase_backus" placeholder="Ingrese el nombre" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Stock Out Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="stock_out_backus" placeholder="Ingrese stock_out_backus"
+                            type="number" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Factor_conversion_cambio_corona_backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="factor_conversion_cambio_corona_backus"
+                            placeholder="factor_conversion_cambio_corona_backus" type="number" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Usuario de Creacion</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="usuario_id_creacion"
+                             />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Usuario de Modificacion</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="usuario_id_modificacion"
+                             />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Fecha Tiempo Creacion</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="fecha_tiempo_creacion"
+                             />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label>Fecha Tiempo Modificacion</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="fecha_tiempo_modificacion"
+                             />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <div nz-row [nzGutter]="24" class="nz-justify-center">
+                <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <button nz-button nzType="primary" [disabled]="!validateForm.valid"
+                                [nzLoading]="isLoadingAction">Actualizar</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="6">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <button nz-button nzType="primary" nzDanger (click)="closeModal($event)">Cancelar</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

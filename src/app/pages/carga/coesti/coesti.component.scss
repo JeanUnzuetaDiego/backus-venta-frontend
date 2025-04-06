@@ -1,0 +1,65 @@
+.container {
+    .content-title {
+        background-color: rgb(233, 229, 15);
+        margin-bottom: 8px;
+        h3 {
+            padding: 2.8px 0 2.8px 0;
+            font-weight: bold;
+            margin: 0;
+            text-align: center;
+        }
+    }
+    .container-content {
+        padding-left: 4px;
+        padding-right: 4px;
+        .content-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding-bottom: 8px;
+            .buttons-upload-file {
+                button:nth-child(1) {
+                    margin-right: 4px;
+                }
+            }
+            @media (max-width:590px) {
+                justify-content: center;
+            }
+        }
+    }
+}
+.table-pagination{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    align-items: center;
+}
+::ng-deep .ant-table-thead > tr > th {
+    background-color: lightslategrey;
+    color: #fff;
+}
+::ng-deep .ant-btn {
+    border-color: #000;
+    &:hover {
+        border-color: #000;
+        color: #000;
+        background-color: #f5f5f5;
+    }
+ }
+ ::ng-deep .ant-picker {
+    border-color: #000;
+ }
+ ::ng-deep .ant-picker:hover, .ant-picker-focused {
+    border-color: #000;
+    box-shadow: none;
+ }
+ ::ng-deep .ant-picker-range .ant-picker-active-bar {
+    background-color: rgb(233, 229, 15);
+ }
+ ::ng-deep .ant-table.ant-table-small .ant-table-thead > tr > th {
+    border-right: 1px solid #f0f0f0;
+    text-align: center;
+}

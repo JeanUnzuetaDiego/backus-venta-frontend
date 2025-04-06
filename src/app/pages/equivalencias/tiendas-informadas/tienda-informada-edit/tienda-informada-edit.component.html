@@ -1,0 +1,149 @@
+
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" nzLayout="vertical">
+    <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; height: 100%;">
+        <nz-spin nzSimple></nz-spin>
+    </div>
+    <div *ngIf="!isLoading">
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>Cadena ID</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="cadena_id" placeholder="Ingrese Cadena ID" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>POC Cadena</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="poc_cadena" placeholder="Ingrese poc_cadena" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>POC Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="poc_backus" placeholder="Ingrese poc_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>Nombre Cadena</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="nombre_cadena" placeholder="Ingrese nombre_cadena" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>Nombre Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="nombre_backus" placeholder="Ingrese nombre_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>Direccion Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="direccion_backus" placeholder="Ingrese direccion_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>Gerencia Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="gerencia_backus" placeholder="Ingrese gerencia_backus"/>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>Cadena Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="cadena_backus" placeholder="Ingrese cadena_backus"/>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>Subcadena Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="subcadena_backus" placeholder="Ingrese subcadena_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>KAM Backus</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="kam_backus" placeholder="Ingrese kam_backus" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>Usuario de  Creación</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="usuario_id_creacion"  />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>Usuario de  Modificacion</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="usuario_id_modificacion"  />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>Fecha Tiempo Creación</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="fecha_tiempo_creacion"  />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>Fecha Tiempo Actualizacion</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="fecha_tiempo_modificacion"  />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <div nz-row [nzGutter]="24" class="nz-justify-center">
+                <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <button nz-button nzType="primary" [disabled]="!validateForm.valid"
+                                [nzLoading]="isLoadingAction">Actualizar</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="6">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <button nz-button nzType="primary" nzDanger (click)="closeModal($event)">Cancelar</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

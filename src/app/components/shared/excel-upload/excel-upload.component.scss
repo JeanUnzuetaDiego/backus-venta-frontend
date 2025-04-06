@@ -1,0 +1,105 @@
+.container {
+    .content-title {
+        background-color: rgb(233, 229, 15);
+        margin-bottom: 8px;
+        h3 {
+            padding: 2.8px 0 2.8px 0;
+            font-weight: bold;
+            margin: 0;
+            text-align: center;
+            text-transform: capitalize;
+        }
+    }
+    .content-uploading {
+        margin-bottom: 8px;
+        .card-content {
+            display: flex;
+            gap: 4px;
+        }
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 8px;
+        }
+    }
+    .contend-structure {
+        padding-left: 4px;
+        padding-right: 4px;
+        h3 {
+            text-align: center;
+            padding: 2.8px 0 2.8px 0;
+            background-color: rgb(233, 229, 15);
+            margin-bottom: 0;
+            text-transform: capitalize;
+        }
+    }
+}
+
+.table-pagination{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    align-items: center;
+  }
+
+.header-card {
+    display: flex;
+    justify-content: space-between;
+    .header-card-title {
+
+    }
+    .header-card-button {
+
+    }
+    @media (max-width:600px) {
+        flex-direction: column;
+        .header-card-title {
+            order: 2;
+        }
+        .header-card-button {
+            order: 1;
+            text-align: right;
+        }
+    }
+}
+::ng-deep .ant-table-container {
+    width: calc(100vw - 8px);
+    overflow-x: auto;
+}
+::ng-deep .ant-table-thead > tr > th {
+    background-color: lightslategrey;
+    color: #fff;
+  }
+  ::ng-deep .ant-btn {
+    border-color: #000;
+    &:hover {
+        border-color: #000;
+        color: #000;
+        background-color: #f5f5f5;
+    }
+    &:focus {
+        border-color: #000;
+        color: #000;
+        background-color: #f5f5f5;
+    }
+  }
+
+::ng-deep .ant-card-head-title {
+    padding: 8px 0;
+}
+::ng-deep .ant-card-head {
+    padding-right: 4px;
+    padding-left: 4px;
+}
+::ng-deep .ant-card-body {
+    padding: 0 4px 0 4px;
+}
+::ng-deep .ant-card-bordered {
+    border: none;
+}
+::ng-deep .ant-table.ant-table-small .ant-table-thead > tr > th {
+    border-right: 1px solid #f0f0f0;
+    text-align: center;
+}

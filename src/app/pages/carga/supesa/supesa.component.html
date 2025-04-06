@@ -1,0 +1,93 @@
+<div class="container">
+  <div class="content-options">
+    <div class="buttons-upload-file">
+      <button nz-button nzType="primary" (click)="uploadFile('stock')">
+        <span nz-icon nzType="plus" nzTheme="outline"></span>
+        Cargar Stock
+      </button>
+      <button nz-button nzType="primary" (click)="uploadFile('venta')">
+        <span nz-icon nzType="plus" nzTheme="outline"></span>
+        Cargar Venta
+      </button>
+    </div>
+    <div class="datePicketFilter">
+      <div>
+        <nz-range-picker [nzSize]="size"></nz-range-picker>
+      </div>
+    </div>
+  </div>
+  <div>
+    <nz-tabset>
+      <nz-tab nzTitle="Información Stock">
+        <nz-table
+          #smallTable
+          nzSize="small"
+          [nzData]="data"
+          [nzScroll]="{ x: '1200px' }"
+        >
+          <thead>
+            <tr>
+              <th nzWidth="120px">Periodo</th>
+              <th nzWidth="100px">FECHA</th>
+              <th nzWidth="200px">Marca</th>
+              <th nzWidth="120px">Linea</th>
+              <th nzWidth="120px">Almacen</th>
+              <th nzWidth="100px">Sucursal</th>
+              <th nzWidth="100px">Categoria</th>
+              <th nzWidth="120px">CodProducto</th>
+              <th nzWidth="150px">Producto</th>
+              <th nzWidth="100px">Mes</th>
+              <th nzWidth="150px">Anio</th>
+              <th nzWidth="150px">Mundo</th>
+              <th nzWidth="120px">Formato</th>
+              <th nzWidth="150px">FactorMax</th>
+              <th nzWidth="120px">StockFisico</th>
+              <th nzWidth="200px">Cantidad</th>
+              <th nzWidth="150px">COD_SUCURSAL</th>
+              <th nzWidth="150px">CODIGOBARRAS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of smallTable.data">
+              <td>{{ data.periodo }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </nz-tab>
+      <nz-tab nzTitle="Información Venta">
+        <nz-table
+          #smallTable
+          nzSize="small"
+          [nzData]="data"
+          [nzScroll]="{ x: '1200px' }"
+        >
+          <thead>
+            <tr>
+              <th nzWidth="120px">Periodo</th>
+              <th nzWidth="100px">FECHA</th>
+              <th nzWidth="200px">MES</th>
+              <th nzWidth="120px">ANIO</th>
+              <th nzWidth="120px">CATEGORIA</th>
+              <th nzWidth="100px">PRODUCTO</th>
+              <th nzWidth="120px">DESC_MARCA</th>
+              <th nzWidth="120px">DESC_LINEA</th>
+              <th nzWidth="150px">Sucursal</th>
+              <th nzWidth="100px">Formato</th>
+              <th nzWidth="150px">Cantidad</th>
+              <th nzWidth="150px">Cajas</th>
+              <th nzWidth="120px">ValorVenta</th>
+              <th nzWidth="200px">CodProducto</th>
+              <th nzWidth="150px">COD_SUCURSAL</th>
+              <th nzWidth="150px">CODIGOBARRAS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of smallTable.data">
+              <td>{{ data.periodo }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</div>

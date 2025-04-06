@@ -1,0 +1,95 @@
+// :host {
+//     display: flex;
+//     text-rendering: optimizeLegibility;
+//     -webkit-font-smoothing: antialiased;
+//     -moz-osx-font-smoothing: grayscale;
+//   }
+  .container {
+    width: 246px;
+    .text-indicaciones {
+      font-size: 16px;
+      padding: 0 4px 0px 4px;
+      color: #000000;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    button {
+      margin-left: 4px;
+      margin-top: 2px;
+    }
+    @media (max-width:768px) {
+      width: 100%;
+      .text-indicaciones {
+        font-size: 14px;
+      }
+    }
+  }
+  
+  nz-list-header {
+    padding: 0;
+    text-align: center;
+  
+    mark {
+      display: block;
+      font-weight: bold; // Esto hará que el texto esté en negrita
+      background-color: rgb(233, 229, 15); // Ajusta este valor al color que prefieras
+      width: 100%; // Agrega esta línea
+    }
+  }
+  
+  
+  // .text-variable {
+  //   color: orange;
+  //   font-weight: bold;
+  //   margin-left: 10px;
+  //   margin-bottom: 0;
+  // }
+  
+  .vertical-checkbox-group {
+    display: flex;
+    flex-direction: column;  
+    padding-left: 4px;
+    margin-top: 0;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    // height:51.5vh;
+    height: calc(100vh - (59.107px + 251.152px)); // navbar 57.995px + 33.997 + 28.143 +  189.012
+    @media (max-width:768px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      height: auto;
+      overflow-x: hidden;
+      padding: 4px;
+    }
+  }
+  
+  // 20/04/2024
+  /* Estilo general de la barra de desplazamiento */
+  .vertical-checkbox-group::-webkit-scrollbar {
+    width: 8px; /* Ancho de la barra de desplazamiento */
+  }
+  
+  /* Estilo del riel de la barra de desplazamiento */
+  .vertical-checkbox-group::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color de fondo del riel */
+    border-radius: 10px; /* Radio de borde del riel */
+  }
+  
+  /* Estilo del control deslizante de la barra de desplazamiento */
+  .vertical-checkbox-group::-webkit-scrollbar-thumb {
+    background: yellow; /* Color del control deslizante */
+    border-radius: 10px; /* Radio de borde del control deslizante */
+  }
+  
+  /* Cambiar el color del control deslizante al pasar el mouse sobre él */
+  .vertical-checkbox-group::-webkit-scrollbar-thumb:hover {
+    background: yellow; /* Nuevo color del control deslizante al pasar el mouse */
+  }
+    
+  // @media only screen and (min-width: 601px) {
+  //   .desktop-padding {
+  //     padding-right: 5px;
+  //   }
+  // }
+  
+ 

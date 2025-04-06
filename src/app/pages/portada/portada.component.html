@@ -1,0 +1,48 @@
+<div class="container" style="background-image: url('assets/backus-portada.jpg');">
+  <!-- Imagen de portada -->
+    <!-- <img src="assets/backus-portada.jpg" class="img-fluid" alt="Imagen de portada"> -->
+    <div class="container-information">
+      <div class="information-content-left">
+        <h1>Actualizaciones</h1>
+        <div class="detailUpdate">
+          @for (data of dataProductPortadas; track $index) {
+            <div class="information">
+              <div class="section-a">
+                <div class="item-information" style="width: 65px;">
+                  <span class="c-white">{{ data.cadena }}</span>
+                  <span class="c-yellow">Cadena</span>
+                </div>
+                <div class="item-information" style="width: 74px; margin-left: 15px;">
+                  <span class="c-white">{{ data.fecha_venta }}</span>
+                  <span class="c-yellow">Venta</span>
+                </div>
+                <div class="item-information" style="width: 74px; margin-left: 15px;">
+                  <span class="c-white">{{ data.fecha_stock }}</span>
+                  <span class="c-yellow">Stock</span>
+                </div>
+              </div>
+              <div class="section-b item-information" style="width: 160px; margin-left: 15px;">
+                <span class="c-white">{{ data.fecha_hora_actualizacion }}</span>
+                <span class="c-yellow">Fecha Hora Actualización</span>
+              </div>
+            </div>
+          }@empty {
+            <div *ngIf="!dataProductPortadas.length" class="contend-loading">
+              <nz-spin nzTip="Loading..." nzSimple [nzSize]="'large'"></nz-spin>
+            </div>
+          }
+        </div>
+      </div>
+      <!-- <div class="information-content-right">
+        <h1>Hitos</h1>
+        <div class="information-right">
+          <p>1) Caso Corona 330ml en Spsa y Coesti - En dichas cadenas se reutilizó el código B2B de Corona 355ml
+            (Vidrio). Por tal motivo se aplicó la siguiente regla en el modelo de datos</p>
+          <ul>
+            <li>SPSA - <span>Conversión a HL 330ml del 15/09/2023 en adelante</span></li>
+            <li>COESTI - <span>Conversión a HL 330ml del 01/09/2023 en adelante</span></li>
+          </ul>
+        </div>
+      </div> -->
+    </div>
+</div>

@@ -1,0 +1,169 @@
+<div class="container">
+  <div class="content-title">
+    <h3>{{entityName}}</h3>
+  </div>
+  <div class="content-uploading">
+    <div class="">
+      <nz-spin [nzSpinning]="loading" nzTip="Cargando archivo...">
+        <nz-card [nzTitle]="templateTitleCard">
+          <div *ngIf="entityName == 'supesa'" class="card-content">
+            <p><button nz-button (click)="supesaInput.click()" [disabled]="!isUploadButtonDisabled">Cargar archivo</button></p>
+            <p>
+              <button nz-button nzType="default" (click)="downloadExcelPlantilla()">Descargar Plantilla</button>
+            </p>
+          </div>
+          <div *ngIf="entityName == 'cencosud'" class="card-content">
+            <p><button nz-button (click)="cencosudInput.click()" [disabled]="!isUploadButtonDisabled">Cargar archivo</button></p>
+            <p>
+              <button nz-button nzType="default" (click)="downloadExcelPlantilla()">Descargar Plantilla</button>
+            </p>
+          </div>
+          <div *ngIf="entityName == 'tottus'" class="card-content">
+            <p><button nz-button (click)="tottusInput.click()" [disabled]="!isUploadButtonDisabled">Cargar archivo</button></p>
+            <p>
+              <button nz-button nzType="default" (click)="downloadExcelPlantilla()">Descargar Plantilla</button>
+            </p>
+          </div>
+          <div *ngIf="entityName == 'tambo'" class="card-content">
+            <p><button nz-button (click)="tamboInput.click()" [disabled]="!isUploadButtonDisabled">Cargar archivo</button></p>
+            <p>
+              <button nz-button nzType="default" (click)="downloadExcelPlantilla()">Descargar Plantilla</button>
+            </p>
+          </div>
+          <div *ngIf="entityName == 'vega'" class="card-content">
+            <p><button nz-button (click)="vegaInput.click()" [disabled]="!isUploadButtonDisabled">Cargar archivo</button></p>
+            <p>
+              <button nz-button nzType="default" (click)="downloadExcelPlantilla()">Descargar Plantilla</button>
+            </p>
+          </div>
+          <div *ngIf="entityName == 'coesti'" class="card-content">
+            <p><button nz-button (click)="coestiInput.click()" [disabled]="!isUploadButtonDisabled">Cargar archivo</button></p>
+            <p>
+              <button nz-button nzType="default" (click)="downloadExcelPlantilla()">Descargar Plantilla</button>
+            </p>
+          </div>
+          <div *ngIf="entityName == 'oxxo'" class="card-content">
+            <p><button nz-button (click)="oxxoInput.click()" [disabled]="!isUploadButtonDisabled">Cargar archivo</button></p>
+            <p>
+              <button nz-button nzType="default" (click)="downloadExcelPlantilla()">Descargar Plantilla</button>
+            </p>
+          </div>
+          <div *ngIf="selectedFileName && selectedFileSize" class="file-info">
+            <div>
+              <i nz-icon nzType="file-excel" nzTheme="outline" style="font-size: 18px; color: green; margin-right: 4px;"></i>
+              <span>{{ selectedFileName }} ({{ selectedFileSize }})</span>
+            </div>
+            <button nz-button (click)="deleteFile()" nzType="default" nzShape="circle" style="width: 26px; height: 26px; min-width: 26px;">
+              <span nz-icon nzType="delete" nzTheme="outline" style="color: red;"></span>
+            </button>
+          </div>
+          <nz-alert *ngIf="showAlert" [nzType]="alertType" [nzMessage]="alertMessage" nzShowIcon style="padding-bottom: 8px;"></nz-alert>
+          <button nz-button [disabled]="isUploadButtonDisabled" (click)="onUploadFile()">Enviar</button>
+        </nz-card>
+      </nz-spin>
+    </div>
+    <input hidden (change)="onExcelFileSelected('supesa')" #supesaInput type="file" id="supesafile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/csv">
+    <input hidden (change)="onExcelFileSelected('cencosud')" #cencosudInput type="file" id="cencosudfile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/csv">
+    <input hidden (change)="onExcelFileSelected('tottus')" #tottusInput type="file" id="tottusfile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/csv">
+    <input hidden (change)="onExcelFileSelected('tambo')" #tamboInput type="file" id="tambofile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/csv">
+    <input hidden (change)="onExcelFileSelected('vega')" #vegaInput type="file" id="vegafile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/csv">
+    <input hidden (change)="onExcelFileSelected('coesti')" #coestiInput type="file" id="coestifile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/csv">
+    <input hidden (change)="onExcelFileSelected('oxxo')" #oxxoInput type="file" id="oxxofile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/csv">
+  </div>
+  <div class="contend-structure">
+    <h3><strong>{{entityName}} {{queryParams.split('-')[1] ? queryParams.split('-')[1] : ''}}</strong></h3>
+    <nz-table #smallTable nzSize="small" [nzData]="data" [nzLoading]="loaderTable" [nzShowPagination]="false">
+      <thead>
+        <tr *ngIf="entityName === 'supesa'">
+          <th *ngFor="let thead of structureWithExampleData[entityName][entityType]?.thead" [nzWidth]="thead.nzWidth+'px'">{{thead.title}}</th>
+        </tr>
+        <tr *ngIf="entityName === 'cencosud'">
+          <th *ngFor="let thead of structureWithExampleData[entityName][entityType]?.thead" [nzWidth]="thead.nzWidth+'px'">{{thead.title}}</th>
+        </tr>
+        <tr *ngIf="entityName === 'tottus'">
+          <th *ngFor="let thead of structureWithExampleData[entityName]?.thead" [nzWidth]="thead.nzWidth+'px'">{{thead.title}}</th>
+        </tr>
+        <tr *ngIf="entityName === 'tambo'">
+          <th *ngFor="let thead of structureWithExampleData[entityName]?.thead" [nzWidth]="thead.nzWidth+'px'">{{thead.title}}</th>
+        </tr>
+        <tr *ngIf="entityName === 'vega'">
+          <th *ngFor="let thead of structureWithExampleData[entityName][entityType]?.thead" [nzWidth]="thead.nzWidth+'px'">{{thead.title}}</th>
+        </tr>
+        <tr *ngIf="entityName === 'coesti'">
+          <th *ngFor="let thead of structureWithExampleData[entityName][entityType]?.thead" [nzWidth]="thead.nzWidth+'px'">{{thead.title}}</th>
+        </tr>
+        <tr *ngIf="entityName === 'oxxo'">
+          <th *ngFor="let thead of structureWithExampleData[entityName][entityType]?.thead" [nzWidth]="thead.nzWidth+'px'">{{thead.title}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="entityName === 'supesa'">
+          <tr *ngFor="let row of structureWithExampleData[entityName][entityType]?.data">
+            <td *ngFor="let cell of row">{{ cell }}</td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="entityName === 'cencosud'">
+          <tr *ngFor="let row of structureWithExampleData[entityName][entityType]?.data">
+            <td *ngFor="let cell of row">{{ cell }}</td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="entityName === 'tottus'">
+          <tr *ngFor="let row of structureWithExampleData[entityName].data">
+            <td *ngFor="let cell of row">{{ cell }}</td>
+          </tr>      
+        </ng-container>
+        <ng-container *ngIf="entityName === 'tambo'">
+          <tr *ngFor="let row of structureWithExampleData[entityName].data">
+            <td *ngFor="let cell of row">{{ cell }}</td>
+          </tr>      
+        </ng-container>
+        <ng-container *ngIf="entityName === 'vega'">
+          <tr *ngFor="let row of structureWithExampleData[entityName][entityType]?.data">
+            <td *ngFor="let cell of row">{{ cell }}</td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="entityName === 'coesti'">
+          <tr *ngFor="let row of data">
+            <td *ngFor="let thead of structureWithExampleData[entityName][entityType]?.thead">
+              {{(thead.column == 'fecha_tiempo_inicio_proceso' || thead.column == 'fecha_tiempo_fin_proceso') 
+                ? (row[thead.column] | date:'yyyy-MM-dd HH:mm:ss') : row[thead.column]}}
+            </td>
+            <!-- <td>{{ row.fecha }}</td>
+            <td>{{ row['FECHA'] }}</td>
+            <td>{{ row['Centro'] }}</td>
+            <td>{{ row['Material'] }}</td> -->
+          </tr>    
+        </ng-container>
+        <ng-container *ngIf="entityName === 'oxxo'">
+          <tr *ngFor="let row of data">
+            <td *ngFor="let thead of structureWithExampleData[entityName][entityType]?.thead">
+              {{(thead.column == 'fecha_tiempo_inicio_proceso' || thead.column == 'fecha_tiempo_fin_proceso') 
+                ? (row[thead.column] | date:'yyyy-MM-dd HH:mm:ss') : row[thead.column]}}
+            </td>
+          </tr> 
+        </ng-container>
+      </tbody>
+    </nz-table>
+    <div class="table-pagination">
+      <nz-pagination
+      [nzPageIndex]="pageIndex"
+      [nzTotal]="totalRecords"
+      [nzPageSize]="pageSize"
+      (nzPageIndexChange)="handlePageEvent($event)"
+      >
+     </nz-pagination>
+     <span style="margin-left: 8px; text-align: center;">Total: {{ setFixedToNumber(totalRecords) }} registros</span>
+    </div>
+  </div>
+</div>
+<!-- [nzTitle]="'Carga de Archivos de: ' + entityName + ' '+ (entityType ? entityType : '')" -->
+<ng-template #templateTitleCard>
+  <div class="header-card">
+    <div class="header-card-title">
+      <span class="header-text">Carga de Archivos de: {{entityName}} {{(entityType ? entityType : '')}}</span>
+    </div>
+    <div class="header-card-button">
+      <button (click)="returnStore()" nz-button nzType="default">Regresar a {{entityName}}</button>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,110 @@
+<nz-layout class="app-layout">
+  <nz-header>
+    <div class="app-header">
+      <div class="container-header">
+        <div class="item-date">
+          <nz-list nzBordered nzSize="small">
+            <nz-list-header style="padding: 0; text-align: center;"><mark
+                style="display: block; ">Fecha</mark></nz-list-header>
+            <nz-list-item>
+                <div style="flex: 1;">
+                  <nz-date-picker style="width: 100%" [nzDisabledDate]="disabledFilterStartDate" nzFormat="yyyy-MM-dd"
+                    nzAllowClear="false" [(ngModel)]="filterStartDate" nzPlaceHolder="Fecha inicio"
+                    (nzOnOpenChange)="handleFilterStartDateOpenChange($event)"></nz-date-picker>
+                </div>
+                <div *ngIf="filterStartDate">
+                  <button nz-button nz-tooltip nzTooltipTitle="Aplicar Filtro" [nzLoading]="loadingDataFilterDate"
+                    style="font-size: 14px;" nzType="default" nzShape="circle"
+                    (click)="applyFilters()"><span nz-icon nzType="search"></span></button>
+                </div>
+            </nz-list-item>
+          </nz-list>
+        </div>
+        <div class="item-range">
+          <nz-list nzBordered nzSize="small" style="padding-bottom: 5px;">
+            <nz-list-header style="padding: 0; text-align: center;">
+              <mark style="display: block; ">Días de
+                Estimación</mark></nz-list-header>
+            <input readonly style="text-align: center; font-weight: 900;" nz-input
+              placeholder="Seleccione un Rango de: 0 - 182 {{dEstimado}}" [(ngModel)]="dEstimado"
+              (ngModelChange)="roundToNearestSeven($event)" type="number" />
+            <nz-slider [(ngModel)]="dEstimado" [nzStep]="7" [nzMin]="7" [nzMax]="182"
+              (ngModelChange)="changeSlider()"></nz-slider>
+          </nz-list>
+        </div>
+      </div>
+    </div>
+  </nz-header>
+
+  <nz-content class="mi-menu">
+    <nz-layout>
+
+      <!-- Modal de Menu Filtro -->
+      <app-drawer-wrapper textPlaceholder="Buscar Filtros-Menu" [filterItems]="listConfigurationMenu"
+        [typeOptionMenu]="typeOptionMenu" (changeFilterItems)="handleFilterMenu($event)"></app-drawer-wrapper>
+
+      <div class="inner-content">
+        <div class="container-information">
+          <div>
+            <app-select-variable (changeSelectColumns)="handleSelectVariable($event)"></app-select-variable>
+          </div>
+
+
+          <div style="width: 100%; display: flex; flex-direction: column;">
+            <nz-list nzBordered nzSize="small">
+              <nz-list-header style="padding: 0; text-align: center;">
+                <mark>
+                  <p></p>
+                  <div class="title-table">Tabla Stock & DOH</div>
+                  <span *ngIf="dataAutogestionTable.length > 0" nz-icon style="font-size: 25px; cursor: pointer;"
+                  nzType="file-excel" nzTheme="fill" (click)="downloadExcel()"></span>
+                  <p *ngIf="dataAutogestionTable.length == 0"></p>
+              </mark>
+            </nz-list-header>
+              <nz-table [nzShowPagination]="false" class="table-header" [nzLoading]="loaderAutogestionTable"
+                [nzData]="dataAutogestionTable" nzBordered [ngStyle]="{whiteSpace: 'nowrap'}"  nzSize="small" [nzScroll]="{ x: 'auto' }">
+                <thead>
+                  <tr>
+                    <th *ngFor="let column of selectedColumns" nzWidth="auto">
+                      {{column.label}}
+                    </th>
+                    <th nzWidth="auto">Stock</th>
+                    <th nzWidth="auto">Venta Promedio por Día</th>
+                    <th nzWidth="auto">DOH</th>
+                  </tr>
+                </thead>
+                <tbody style="height: auto;">
+                  <tr *ngFor="let item of dataAutogestionTable">
+                    <ng-container *ngFor="let column of selectedColumns">
+                      <td style="text-align: left;">{{item[column.value]}}</td>
+                    </ng-container>
+                    <td style="text-align: right;">{{ setFixedToNumber(item.stock) }}</td>
+                    <td style="text-align: right;">{{ setFixedHL(item.ventapvp) }}</td>
+                    <td style="text-align: right;">{{ setFixed(item.doh) }}</td>
+                  </tr>
+                  <th *ngIf="dataAutogestionTable.length > 0" [attr.colspan]="selectedColumns.length">
+                    Total
+                  </th>
+                  <td style="text-align: right;">
+                    {{ calculateColumnTotalToNumber("stock") }}
+                  </td>
+                  <td style="text-align: right;">
+                    {{ calculateColumnTotalHL("ventapvp") }}
+                  </td>
+                  <td style="text-align: right;">
+                    {{ calculateColumnTotal("doh") }}
+                  </td>
+                </tbody>
+              </nz-table>
+              <div class="table-pagination">
+                <nz-pagination [nzPageIndex]="page" [nzTotal]="total" [nzPageSize]="limit"
+                  (nzPageIndexChange)="pageIndexChange($event)"></nz-pagination>
+                  <span style="margin-left: 15px;">Total: {{ setFixedToNumber(total) }} registros</span>
+              </div>
+            </nz-list>
+          </div>
+        </div>
+      </div>
+    </nz-layout>
+  </nz-content>
+</nz-layout>

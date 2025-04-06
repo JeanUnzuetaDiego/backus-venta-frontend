@@ -1,0 +1,144 @@
+<div class="drawer-wrapper ng-star-inserted" tabindex="0" (keydown.escape)="collapseDrawer()">
+  <div [ngClass]="{'drawer-open': isCollapsed }" class="drawer drawer-left ">
+    <div [ngClass]="{'drawer-mask': isCollapsed }"></div>
+    <div class="drawer-content-wrapper" [ngStyle]="isCollapsed ? null : {'transform': 'translateX(-100%)'}">
+      <div class="drawer-content">
+        <div class="subtitle-sidebar">
+          <mark style="display: block; width: 100%; font-weight: bold;">Tienda</mark>
+        </div>
+        <ul nz-menu nzTheme="dark"
+          class="aside-container menu-site ant-menu ant-menu-root ant-menu-light ant-menu-inline">
+          
+          <nz-select *ngIf="isShowFilterDireccion"  nzMode="multiple" nzAllowClear nzShowSearch nzPlaceHolder="Direccion"
+            [(ngModel)]="listOfTagOptionsDireccion">
+            <ng-container *ngFor="let item of dataFilterDireccion">
+              <nz-option *ngIf="!loadingDataFilterMenu" [nzLabel]="item.value"
+                [nzValue]="item.value"></nz-option>
+            </ng-container>
+            <nz-option *ngIf="loadingDataFilterMenu" nzDisabled nzCustomContent>
+              <span nz-icon nzType="loading" class="loading-icon"></span>
+              Loading Data...
+            </nz-option>
+          </nz-select>
+
+          <nz-select *ngIf="isShowFilterGerencia" nzMode="multiple" nzAllowClear nzShowSearch nzPlaceHolder="Gerencia"
+            [(ngModel)]="listOfTagOptionsGerencia">
+            <ng-container *ngFor="let item of dataFilterGerencia">
+              <nz-option *ngIf="!loadingDataFilterMenu" [nzLabel]="item.value" [nzValue]="item.value"></nz-option>
+            </ng-container>
+            <nz-option *ngIf="loadingDataFilterMenu" nzDisabled nzCustomContent>
+              <span nz-icon nzType="loading" class="loading-icon"></span>
+              Loading Data...
+            </nz-option>
+          </nz-select>
+
+          <nz-select *ngIf="isShowFilterSubCanal" nzMode="multiple" nzAllowClear nzShowSearch nzPlaceHolder="Sub Canal"
+            [(ngModel)]="listOfTagOptionsSubCanal">
+            <ng-container *ngFor="let item of dataFilterSubCanal">
+              <nz-option *ngIf="!loadingDataFilterMenu" [nzLabel]="item.value" [nzValue]="item.value"></nz-option>
+            </ng-container>
+            <nz-option *ngIf="loadingDataFilterMenu" nzDisabled nzCustomContent>
+              <span nz-icon nzType="loading" class="loading-icon"></span>
+              Loading Data...
+            </nz-option>
+          </nz-select>
+
+          <nz-select *ngIf="isShowFilterFormato" nzMode="multiple" nzAllowClear nzShowSearch nzPlaceHolder="Formato"
+            [(ngModel)]="listOfTagOptionsFormato">
+            <ng-container *ngFor="let item of dataFilterFormato">
+              <nz-option *ngIf="!loadingDataFilterMenu" [nzLabel]="item.value" [nzValue]="item.value"></nz-option>
+            </ng-container>
+            <nz-option *ngIf="loadingDataFilterMenu" nzDisabled nzCustomContent>
+              <span nz-icon nzType="loading" class="loading-icon"></span>
+              Loading Data...
+            </nz-option>
+          </nz-select>
+
+          <nz-select *ngIf="isShowFilterTiendaBackus" nzMode="multiple" nzAllowClear nzShowSearch nzPlaceHolder="Tienda Backus"
+            [(ngModel)]="listOfTagOptionsTiendaBackus">
+            <ng-container *ngFor="let item of dataFilterTiendaBackus">
+              <nz-option *ngIf="!loadingDataFilterMenu" [nzLabel]="item.value" [nzValue]="item.value"></nz-option>
+            </ng-container>
+            <nz-option *ngIf="loadingDataFilterMenu" nzDisabled nzCustomContent>
+              <span nz-icon nzType="loading" class="loading-icon"></span>
+              Loading Data...
+            </nz-option>
+          </nz-select>
+
+          <nz-select *ngIf="isShowFilterCodTienda" nzMode="multiple" nzAllowClear nzShowSearch nzPlaceHolder="CodTienda"
+            [(ngModel)]="listOfTagOptionsCodTienda">
+            <ng-container *ngFor="let item of dataFilterCodTienda">
+              <nz-option *ngIf="!loadingDataFilterMenu" [nzLabel]="item.value" [nzValue]="item.value"></nz-option>
+            </ng-container>
+            <nz-option *ngIf="loadingDataFilterMenu" nzDisabled nzCustomContent>
+              <span nz-icon nzType="loading" class="loading-icon"></span>
+              Loading Data...
+            </nz-option>
+          </nz-select>
+
+        </ul>
+
+        <div class="subtitle-sidebar">
+          <mark style="display: block; width: 100%; font-weight: bold;">Jerarquía Cencosud</mark>
+        </div>
+        <ul nz-menu nzTheme="dark"
+          class="aside-container menu-site ant-menu ant-menu-root ant-menu-light ant-menu-inline">
+          
+          <nz-select *ngIf="isShowFilterRubro" nzMode="multiple" nzAllowClear nzShowSearch nzPlaceHolder="Rubro"
+            [(ngModel)]="listOfTagOptionsRubro">
+            <ng-container *ngFor="let item of dataFilterRubro">
+              <nz-option *ngIf="!loadingDataFilterMenu" [nzLabel]="item.value"
+                [nzValue]="item.value"></nz-option>
+            </ng-container>
+            <nz-option *ngIf="loadingDataFilterMenu" nzDisabled nzCustomContent>
+              <span nz-icon nzType="loading" class="loading-icon"></span>
+              Loading Data...
+            </nz-option>
+          </nz-select>
+
+          <nz-select *ngIf="isShowFilterMarca" nzMode="multiple" nzAllowClear nzShowSearch nzPlaceHolder="Marca"
+            [(ngModel)]="listOfTagOptionsMarca">
+            <ng-container *ngFor="let item of dataFilterMarca">
+              <nz-option *ngIf="!loadingDataFilterMenu" [nzLabel]="item.value" [nzValue]="item.value"></nz-option>
+            </ng-container>
+            <nz-option *ngIf="loadingDataFilterMenu" nzDisabled nzCustomContent>
+              <span nz-icon nzType="loading" class="loading-icon"></span>
+              Loading Data...
+            </nz-option>
+          </nz-select>
+
+          <nz-select *ngIf="isShowFilterDescProducto" nzMode="multiple" nzAllowClear nzShowSearch nzPlaceHolder="Desc. Producto"
+            [(ngModel)]="listOfTagOptionsDescProducto">
+            <ng-container *ngFor="let item of dataFilterDescProducto">
+              <nz-option *ngIf="!loadingDataFilterMenu" [nzLabel]="item.value" [nzValue]="item.value"></nz-option>
+            </ng-container>
+            <nz-option *ngIf="loadingDataFilterMenu" nzDisabled nzCustomContent>
+              <span nz-icon nzType="loading" class="loading-icon"></span>
+              Loading Data...
+            </nz-option>
+          </nz-select>
+
+          <nz-select *ngIf="isShowFilterCodCencosud" nzMode="multiple" nzAllowClear nzShowSearch nzPlaceHolder="Cod. Cencosud"
+            [(ngModel)]="listOfTagOptionsCodCencosud">
+            <ng-container *ngFor="let item of dataFilterCodCencosud">
+              <nz-option *ngIf="!loadingDataFilterMenu" [nzLabel]="item.value" [nzValue]="item.value"></nz-option>
+            </ng-container>
+            <nz-option *ngIf="loadingDataFilterMenu" nzDisabled nzCustomContent>
+              <span nz-icon nzType="loading" class="loading-icon"></span>
+              Loading Data...
+            </nz-option>
+          </nz-select>
+
+        </ul>
+      </div>
+      <div nz-tooltip nzTooltipTitle="Activar/Desactivar Menu" class="drawer-handle"
+        (click)="inicioHidenSideBar()">
+        <span class="drawer-handle-icon"></span>
+      </div>
+      <div *ngIf="isCollapsed" nz-tooltip nzTooltipTitle="Aplicar Filtro" class="drawer-handle-filter"
+        (click)="applyFilters()">
+        <span nz-icon nzType="filter" nzTheme="outline"></span>
+      </div>
+    </div>
+  </div>
+</div>

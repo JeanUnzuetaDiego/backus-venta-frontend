@@ -1,0 +1,68 @@
+const Constantes = {
+    FormatDate: {
+        DATE: 'yyyy-MM-dd',
+        DATE_TIME: 'yyyy-MM-dd HH:mm:ss',
+        MONTH_DES: 'MMMM'
+    },
+    DEFAULT_SELECT: {
+        VALUE_SELECIONAR_TODOS: 'seleccionar_todo',
+        SELECIONAR_TODOS: '(Seleccionar Todo)',
+        VALUE_SELECIONAR_VACIO: 'seleccionar_vacio',
+        VACIOS: '(Vacias)',
+    },
+    OPTION_SELECT: {
+        EXCEL: 'type-excel',
+    },
+    Filtro: {
+        NOMBRE_BACKUS: 'nombre_backus',
+        RETAIL: 'retail',
+        FORMATO: 'formato',
+        DIRECCION_BACKUS: 'direccion_backus',
+        ZONA_NIELSEN: 'zona_nielsen',
+        GERENCIA_BACKUS: 'gerencia_backus',
+        SUB_CANAL_BACKUS: 'sub_canal_backus',
+        CLUSTER_BACKUS: 'cluster_backus',
+        SUPERVISOR_BACKUS: 'supervisor_backus',
+        COBERTURA: 'cobertura',
+        CD_MASS: 'cd_mass',
+        DESCRIPCION_NOR: 'descripcion_nor',
+        CATEGORIA: 'categoria',
+        SUB_CATEGORIA: 'sub_categoria',
+        POC_CADENA: 'poc_cadena',
+        KPI_SKU: 'kpi_sku',
+        SKU_CADENA: 'sku_cadena',
+        MARCA: 'marca',
+        TIPO: 'tipo',
+        CAPACIDAD_NOR: 'capacidad_nor',
+        FORMATO_NOR: 'formato_nor',
+        FORMATO_DE_VENTA: 'formato_de_venta',
+        TIPO_DE_ENVASE: 'tipo_de_envase',
+        SERVE: 'serve',
+        POC: 'poc',
+        SKU: 'sku',
+        SKU_CADENA_ID: 'sku_cadena_id',
+        CADENA_ID: 'cadena_id',
+        SKU_BACKUS: 'sku_backus',
+    },
+    SKU_TABLE: {
+        CADENA_ID: 'cadena_id',
+        SKU_CADENA: 'sku_cadena',
+        SKU_BACKUS: 'sku_backus',
+        DESCRIPCION_CADENA: 'descripcion_cadena',
+        DESCRIPCION_BACKUS: 'descripcion_backus',
+    },
+    POC_TABLE: {
+        CADENA_ID: 'cadena_id',
+        POC_CADENA: 'poc_cadena',
+        POC_BACKUS: 'poc_backus',
+        NOMBRE_CADENA: 'nombre_cadena',
+        NOMBRE_BACKUS: 'nombre_backus',
+    },
+    TYPE_DATA_SSS: {
+        SSS: 'SSS',
+        APERTURA: 'APERTURA',
+        CIERRE: 'CIERRE',
+    },
+};
+
+export default Constantes;

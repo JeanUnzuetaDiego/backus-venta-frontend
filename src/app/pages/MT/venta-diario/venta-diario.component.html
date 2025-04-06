@@ -1,0 +1,199 @@
+<div class="app-layout">
+  <div class="container-header-venta-diario">
+    <div class="container-date">
+      <h4 class="title-date"><strong>Fecha</strong></h4>      
+      <div class="content-date">
+        <div class="items">
+          <nz-date-picker style="width: 100%;" [nzDisabledDate]="disabledFilterStartDate" nzFormat="yyyy-MM-dd"
+            nzAllowClear="false" [(ngModel)]="filterStartDate" nzPlaceHolder="Fecha inicio"
+            (nzOnOpenChange)="handleFilterStartDateOpenChange($event)"></nz-date-picker>
+        </div>
+        <div class="items">
+          <nz-date-picker style="width: 100%;" #filterEndDatePicker [nzDisabledDate]="disabledFilterEndDate"
+            nzAllowClear="false" nzFormat="yyyy-MM-dd" [(ngModel)]="filterEndDate" nzPlaceHolder="Fecha fin">
+          </nz-date-picker>
+        </div>
+        <div>
+          <button nz-button nz-tooltip nzTooltipTitle="Aplicar Filtro" [nzLoading]="loadingDataFilterDate"
+            style="font-size: 14px;" nzType="default" nzShape="circle"
+            (click)="applyFilters()"><span nz-icon nzType="search"></span></button>
+        </div>
+      </div>
+      <p style="margin: 0;"></p>
+    </div>
+
+    <div class="container-kpis-gestion">
+      <h4 class="title-kpis-gestion"><strong>KPIs de Gestión</strong></h4>
+      <div class="content-kpis-gestion">
+        <div class="content-element">
+          @if(dataResumenKpiGestion?.totalhl){
+            <div>{{ importeHLTotal }}</div>
+          }@else {
+            <div>(En blanco)</div>
+          }
+          <div><strong>Sell Out HL</strong></div>
+        </div>
+        <div class="content-element">
+          @if(dataResumenKpiGestion?.totalhlCrecimiento){
+            <div>{{ dataResumenKpiGestion?.totalhlCrecimiento }}%</div>
+          }@else{
+            <div>(En blanco)</div>
+          }
+          <div><strong>Crecimiento HL</strong></div>
+        </div>
+        
+        <div class="content-element">
+          <div>S/. {{ importeVentaTotal }}</div>
+          <div><strong>Sell Out S/.</strong></div>
+        </div>
+
+        <div class="content-element">
+          @if(dataResumenKpiGestion?.totalamountCrecimiento){
+            <div>{{ dataResumenKpiGestion?.totalamountCrecimiento }}%</div>
+          }@else{
+            <div>0%</div>
+          }
+          <div><strong>Crecimiento S/.</strong></div>
+        </div>
+        
+        <div class="content-element">
+          @if(dataResumenKpiGestion?.totalstockuni){
+            <div>{{ dataResumenKpiGestion?.totalstockuni }}</div>
+          }@else{
+            <div>0</div>
+          }
+          <div><strong>Stock UN</strong></div>
+        </div>
+
+        <div class="content-element">
+          @if(dataResumenKpiGestion?.totalstockhl){
+            <div>{{ dataResumenKpiGestion?.totalstockhl }}</div>
+          }@else{
+            <div>0</div>
+          }
+          <div><strong>Stock HL</strong></div>
+        </div>
+
+        <div class="content-element">
+          @if(dataResumenKpiGestion?.totalpriceuni){
+            <div>S/. {{ dataResumenKpiGestion?.totalpriceuni }}</div>
+          }@else{
+            <div>S/. 0.00</div>
+          }
+          <div><strong>Precio Unitario PVP+IGV</strong></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="mi-menu">
+
+    <!-- Modal de Menu Filtro -->
+    <app-drawer-wrapper textPlaceholder="Buscar Filtros-Menu" [filterItems]="listConfigurationMenu" [typeOptionMenu]="typeOptionMenu"
+    (changeFilterItems)="handleFilterMenu($event)"></app-drawer-wrapper>
+
+    <div class="inner-content">
+      <div class="container-title-table">
+        <p></p>
+        <h4 class="title-table"><strong>Tabla Venta Diario</strong></h4>
+        <span *ngIf="dataAutogestionTable.length > 0" nz-icon style="font-size: 25px; cursor: pointer;" nzType="file-excel" nzTheme="fill" (click)="downloadExcel()"></span>
+        <p *ngIf="dataAutogestionTable.length == 0"></p>
+      </div>
+      <nz-table [nzShowPagination]="false" class="table-header" [nzLoading]="loaderAutogestionTable"
+        [nzData]="dataAutogestionTable" nzBordered [ngStyle]="{whiteSpace: 'nowrap'}"  nzSize="small" [nzScroll]="{ x: 'auto' }">
+        <thead>
+          <tr>
+            <th>Año</th>
+            <th>Mes</th>
+            <th>Dirección
+              <!-- <app-filter-search-table textPlaceholder="Buscar Dirección" [filterItems]="filterNameDireccion"
+                (changeFilterItems)="handleFilterDireccion($event)"></app-filter-search-table> -->
+            </th>
+            <th>Gerencia
+            <!-- <app-filter-search-table textPlaceholder="Buscar Gerencia" [filterItems]="filterNameGerencia"
+              (changeFilterItems)="handleFilterGerencia($event)"></app-filter-search-table> -->
+            </th>
+            <!-- <th>Sub Canal
+              <app-filter-search-table textPlaceholder="Buscar Sub Canal" [filterItems]="filterNameSubCanal"
+                (changeFilterItems)="handleFilterSubCanal($event)"></app-filter-search-table>
+            </th> -->
+            <th>Retail
+              <!-- <app-filter-search-table textPlaceholder="Buscar Retail" [filterItems]="filterNameRetail"
+                (changeFilterItems)="handleFilterRetail($event)"></app-filter-search-table> -->
+            </th>
+            <th>Formato
+              <!-- <app-filter-search-table textPlaceholder="Buscar Formato" [filterItems]="filterNameFormato"
+                (changeFilterItems)="handleFilterFormato($event)"></app-filter-search-table> -->
+            </th>
+            <th>Cod. Tienda B2B</th>
+            <th>Desc. Tienda</th>
+            <th>Categoria
+              <!-- <app-filter-search-table textPlaceholder="Buscar Categoria" [filterItems]="filterNameCategoria"
+                (changeFilterItems)="handleFilterCategoria($event)"></app-filter-search-table> -->
+            </th>
+            <th>KPI SKU
+              <!-- <app-filter-search-table textPlaceholder="Buscar KPI SKU" [filterItems]="filterNameKpiSku"
+                (changeFilterItems)="handleFilterKpiSku($event)"></app-filter-search-table> -->
+            </th>
+            <th>Marca
+              <!-- <app-filter-search-table textPlaceholder="Buscar Marca" [filterItems]="filterNameMarca"
+                (changeFilterItems)="handleFilterMarca($event)"></app-filter-search-table> -->
+            </th>
+            <th>Cod. SKU B2B</th>
+            <th>Cod. SKU Backus</th>
+            <th>Descripcion</th>
+            <th>Venta (PVP)</th>
+            <th>Venta (UN)</th>
+            <th>Venta (Costo)</th>
+            <th>HL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dataAutogestionTable">
+            <td style="text-align: center;">{{ item.year }}</td>
+            <td style="text-align: center;">{{ item.month }}</td>
+            <td style="text-align: left;">{{ item.direccion_backus }}</td>
+            <td style="text-align: left;">{{ item.gerencia_backus }}</td>
+            <!-- <td style="text-align: center;">{{ item.sub_canal_backus }}</td> -->
+            <td style="text-align: center;">{{ item.retail }}</td>
+            <td style="text-align: center;">{{ item.formato }}</td>
+            <td style="text-align: center;">{{ item.poc_cadena }}</td>
+            <td style="text-align: center;">{{ item.poc }}</td>
+            <td style="text-align: center;">{{ item.categoria }}</td>
+            <td style="text-align: left;">{{ item.kpi_sku }}</td>
+            <td style="text-align: center;">{{ item.marca }}</td>
+            <td style="text-align: center;">{{ item.sku_cadena }}</td>
+            <td style="text-align: center;">{{ item.sku }}</td>
+            <td style="text-align: center;">{{ item.descripcion }}</td>
+            <td style="text-align: center;">S/. {{ item.precio_venta | number:'1.2-2' }}</td>
+            <td style="text-align: center;">{{ item.venta_un }}</td>
+            <td style="text-align: center;">S/. {{ item.precio_costo  | number:'1.2-2'}}</td>
+            <td style="text-align: center;">{{ item.hl | number:'1.2-2'}}</td>
+          </tr>
+        </tbody>
+        @if(dataAutogestionTable.length > 0){
+          <tfoot class="sum-total-columns">
+            <tr>
+              <td colspan="14"><strong>Total</strong></td>
+              <td style="white-space: nowrap; background-color: white; color: black; " >S/. {{ totalPrecioVenta | number:'1.2-2' }}</td>
+              <td style="white-space: nowrap; background-color: white; color: black; " >{{ totalVentaUn }}</td>
+              <td style="white-space: nowrap; background-color: white; color: black; " >S/. {{ totalPrecioCosto | number:'1.2-2' }}</td>
+              <td style="white-space: nowrap; background-color: white; color: black; " >{{ totalHl | number:'1.2-2' }}</td>
+            </tr>
+          </tfoot>
+        }
+      </nz-table>
+      <div class="table-pagination">
+        <nz-pagination
+        [nzPageIndex]="pageIndex"
+        [nzTotal]="total"
+        [nzPageSize]="pageSize"
+        (nzPageIndexChange)="handlePageEvent($event)"
+        >
+        </nz-pagination>
+        <span style="margin-left: 15px;">Total: {{ setFixedToNumber(total) }} registros</span>
+      </div>
+    </div>
+  </div>
+</div>
